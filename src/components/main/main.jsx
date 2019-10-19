@@ -8,6 +8,7 @@ import movies from '../../data/movies';
 const Main = (props) => {
   const {copyrightYear} = props;
   const movieNames = movies.map((movie) => movie.name);
+  const clickTitle = () => {};
 
   return (
     <div>
@@ -229,7 +230,7 @@ const Main = (props) => {
             </li>
           </ul>
 
-          <MoviesList movieNames={movieNames}/>
+          <MoviesList movieNames={movieNames} onClickTitle={clickTitle} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">

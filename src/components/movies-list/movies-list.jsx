@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const MoviesList = (props) => {
-  const {movieNames} = props;
+  const {movieNames, onClickTitle} = props;
   const listItems = movieNames.map((name, index) => (
     <article key={index} className="small-movie-card catalog__movies-card">
       <div className="small-movie-card__image">
@@ -13,7 +13,7 @@ const MoviesList = (props) => {
           height="175"
         />
       </div>
-      <h3 className="small-movie-card__title">
+      <h3 className="small-movie-card__title" onClick={onClickTitle}>
         <a className="small-movie-card__link" href="movie-page.html">
           {name}
         </a>
@@ -29,7 +29,8 @@ const MoviesList = (props) => {
 };
 
 MoviesList.propTypes = {
-  movieNames: PropTypes.arrayOf(PropTypes.string)
+  movieNames: PropTypes.arrayOf(PropTypes.string),
+  onClickTitle: PropTypes.func
 };
 
 export default MoviesList;
