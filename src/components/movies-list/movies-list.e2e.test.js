@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import MoviesList from './movies-list.jsx';
+import MoviesList from './movies-list';
 
 Enzyme.configure({adapter: new Adapter()});
 
