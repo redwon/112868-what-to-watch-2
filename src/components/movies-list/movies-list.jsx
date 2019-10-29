@@ -1,36 +1,54 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-const MoviesList = (props) => {
-  const {movieNames, onClickTitle} = props;
-  const listItems = movieNames.map((name, index) => (
-    <article key={index} className="small-movie-card catalog__movies-card">
-      <div className="small-movie-card__image">
-        <img
-          src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-          alt="Fantastic Beasts: The Crimes of Grindelwald"
-          width="280"
-          height="175"
-        />
-      </div>
-      <h3 className="small-movie-card__title" onClick={onClickTitle}>
-        <a className="small-movie-card__link" href="movie-page.html">
-          {name}
-        </a>
-      </h3>
-    </article>
-  ));
+import MovieCard from '../movie-card/movie-card';
 
-  return (
-    <div className="catalog__movies-list">
-      {listItems}
-    </div>
-  );
-};
+class MoviesList extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeCard: null,
+    };
+  }
+
+  onHoverCard(movie) {
+    this.setState(() => {
+      return {
+        activeCard: movie
+      };
+    });
+  }
+
+  getListItems() {
+    const {movies, onClickTitle} = this.props;
+
+    return movies.map((it, i) => (
+      <MovieCard
+        key={i}
+        movie={it}
+        onClick={onClickTitle}
+        onHover={(movie) => this.onHoverCard(movie)}
+      />
+    ));
+  }
+
+  render() {
+    return (
+      <div className="catalog__movies-list">
+        {this.getListItems()}
+      </div>
+    );
+  }
+}
 
 MoviesList.propTypes = {
-  movieNames: PropTypes.arrayOf(PropTypes.string),
-  onClickTitle: PropTypes.func
+  movies: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string
+  })),
+  onClickTitle: PropTypes.func,
+  onHoverCard: PropTypes.func,
 };
 
 export default MoviesList;
