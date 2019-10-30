@@ -1,13 +1,24 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import App from './app.jsx';
+import App from './app';
+
+const mockMovies = [
+  {
+    name: `name`,
+    image: `image`
+  },
+  {
+    name: `name`,
+    image: `image`
+  }
+];
 
 it(`renders correctly`, () => {
   const tree = renderer
     .create(<App
-      errorCount={0}
-      gameTime={0}
+      currentYear={0}
+      movies={mockMovies}
     />)
     .toJSON();
 

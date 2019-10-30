@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './components/app/app.jsx';
+import films from './mocks/films';
 
-const init = () => {
+import App from './components/app/app';
+
+const init = (movies) => {
   const settings = {
     currentYear: new Date().getFullYear()
   };
 
   ReactDOM.render(
-      <App currentYear={settings.currentYear} />,
+      <App
+        currentYear={settings.currentYear}
+        movies={movies}
+      />,
       document.querySelector(`#root`)
   );
 };
 
-init();
+init(films);

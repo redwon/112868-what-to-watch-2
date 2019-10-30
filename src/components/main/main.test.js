@@ -1,13 +1,24 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Main from './main.jsx';
+import Main from './main';
+
+const mockMovies = [
+  {
+    name: `name`,
+    image: `image`
+  },
+  {
+    name: `name`,
+    image: `image`
+  }
+];
 
 it(`renders correctly`, () => {
   const tree = renderer
     .create(<Main
-      errorCount={0}
-      gameTime={0}
+      copyrightYear={0}
+      movies={mockMovies}
     />)
     .toJSON();
 

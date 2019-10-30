@@ -1,15 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MoviesList from '../movies-list/movies-list.jsx';
+import MoviesList from '../movies-list/movies-list';
 
-import movies from '../../data/movies';
-
-const Main = (props) => {
-  const {copyrightYear} = props;
-  const movieNames = movies.map((movie) => movie.name);
-  const clickTitle = () => {};
-
+const Main = ({copyrightYear, movies}) => {
   return (
     <div>
       <div className="visually-hidden">
@@ -230,7 +224,7 @@ const Main = (props) => {
             </li>
           </ul>
 
-          <MoviesList movieNames={movieNames} onClickTitle={clickTitle} />
+          <MoviesList movies={movies}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">
@@ -258,7 +252,11 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  copyrightYear: PropTypes.number
+  copyrightYear: PropTypes.number.isRequired,
+  movies: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string
+  })),
 };
 
 export default Main;

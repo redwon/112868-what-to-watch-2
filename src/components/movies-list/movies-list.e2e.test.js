@@ -2,23 +2,29 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import MoviesList from './movies-list.jsx';
+import MoviesList from './movies-list';
 
 Enzyme.configure({adapter: new Adapter()});
 
-const mockMovieNames = [
-  `Movie 1`,
-  `Movie 2`
+const mockMovies = [
+  {
+    name: `name`,
+    image: `image`
+  },
+  {
+    name: `name`,
+    image: `image`
+  }
 ];
 
-it(`Welcome screen is correctly rendered after relaunch`, () => {
+it(`MovieList is correctly handled click on title`, () => {
   const clickHandler = jest.fn();
-  const moviesList = shallow(<MoviesList
-    movieNames={mockMovieNames}
+  const wrapper = shallow(<MoviesList
+    movies={mockMovies}
     onClickTitle={clickHandler}
   />);
 
-  const movieTitles = moviesList.find(`.small-movie-card__title`);
+  const movieTitles = wrapper.find(`.small-movie-card__link`);
 
   movieTitles.forEach((node) => {
     node.simulate(`click`);

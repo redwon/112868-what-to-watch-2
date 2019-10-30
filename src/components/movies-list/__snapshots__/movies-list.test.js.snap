@@ -6,14 +6,15 @@ exports[`renders correctly 1`] = `
 >
   <article
     className="small-movie-card catalog__movies-card"
+    onMouseEnter={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
       <img
-        alt="Fantastic Beasts: The Crimes of Grindelwald"
+        alt="name"
         height="175"
-        src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+        src="image"
         width="280"
       />
     </div>
@@ -23,21 +24,23 @@ exports[`renders correctly 1`] = `
       <a
         className="small-movie-card__link"
         href="movie-page.html"
+        onClick={[Function]}
       >
-        Movie 1
+        name
       </a>
     </h3>
   </article>
   <article
     className="small-movie-card catalog__movies-card"
+    onMouseEnter={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
       <img
-        alt="Fantastic Beasts: The Crimes of Grindelwald"
+        alt="name"
         height="175"
-        src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+        src="image"
         width="280"
       />
     </div>
@@ -47,8 +50,9 @@ exports[`renders correctly 1`] = `
       <a
         className="small-movie-card__link"
         href="movie-page.html"
+        onClick={[Function]}
       >
-        Movie 2
+        name
       </a>
     </h3>
   </article>
