@@ -1,17 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import MovieCard from './movie-card';
+import films from '../../mocks/films';
 
-const mockMovie = {
-  name: `name`,
-  image: `image`
-};
+import MovieCard from './movie-card';
 
 it(`renders correctly`, () => {
   const tree = renderer
     .create(<MovieCard
-      movie={mockMovie}
+      movie={films[0]}
       onClick={() => {}}
       onHover={() => {}}
     />)

@@ -1,15 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import films from '../../mocks/films';
-
-import Main from './main';
+import VideoPlayer from './video-player';
 
 it(`renders correctly`, () => {
   const tree = renderer
-    .create(<Main
-      copyrightYear={0}
-      movies={films}
+    .create(<VideoPlayer
+      src="src"
+      poster="poster"
     />)
     .toJSON();
 

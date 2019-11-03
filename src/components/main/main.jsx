@@ -255,7 +255,8 @@ Main.propTypes = {
   copyrightYear: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
-    image: PropTypes.string
+    image: PropTypes.string,
+    previewVideo: PropTypes.string,
   })),
 };
 

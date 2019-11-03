@@ -1,23 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import MoviesList from './movies-list';
+import films from '../../mocks/films';
 
-const mockMovies = [
-  {
-    name: `name`,
-    image: `image`
-  },
-  {
-    name: `name`,
-    image: `image`
-  }
-];
+import MoviesList from './movies-list';
 
 it(`renders correctly`, () => {
   const tree = renderer
     .create(<MoviesList
-      movies={mockMovies}
+      movies={films}
     />)
     .toJSON();
 
