@@ -1,9 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import films from '../../mocks/films';
-
-import Main from './main';
+import VideoPlayer from './video-player';
 
 const createNodeMock = (element) => {
   if (element.type === `video`) {
@@ -14,9 +12,9 @@ const createNodeMock = (element) => {
 
 it(`renders correctly`, () => {
   const tree = renderer
-    .create(<Main
-      copyrightYear={0}
-      movies={films}
+    .create(<VideoPlayer
+      src="src"
+      poster="poster"
     />, {createNodeMock})
     .toJSON();
 

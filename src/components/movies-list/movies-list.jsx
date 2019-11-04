@@ -45,7 +45,8 @@ class MoviesList extends PureComponent {
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
-    image: PropTypes.string
+    image: PropTypes.string,
+    previewVideo: PropTypes.string,
   })),
   onClickTitle: PropTypes.func,
   onHoverCard: PropTypes.func,

@@ -1,0 +1,58 @@
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
+
+class VideoPlayer extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isPlaying: props.isPlaying
+    };
+
+    this.videoRef = React.createRef();
+  }
+
+  componentDidMount() {
+    const video = this.videoRef.current;
+
+    video.onplay = () => {
+      this.setState({isPlaying: true});
+    };
+
+    video.onpause = () => {
+      this.setState({isPlaying: false});
+    };
+  }
+
+  componentDidUpdate() {
+    const video = this.videoRef.current;
+
+    if (this.props.isPlaying) {
+      video.play();
+    } else {
+      video.load();
+    }
+  }
+
+  render() {
+    const {src, poster, isMuted = false} = this.props;
+    return (
+      <video
+        className="player__video"
+        src={src}
+        poster={poster}
+        muted={isMuted}
+        ref={this.videoRef}
+      ></video>
+    );
+  }
+}
+
+VideoPlayer.propTypes = {
+  src: PropTypes.string.isRequired,
+  poster: PropTypes.string,
+  isPlaying: PropTypes.bool,
+  isMuted: PropTypes.bool,
+};
+
+export default VideoPlayer;

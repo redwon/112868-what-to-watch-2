@@ -7,15 +7,16 @@ exports[`renders correctly 1`] = `
   <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="name"
-        height="175"
-        src="image"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
     <h3
@@ -26,22 +27,23 @@ exports[`renders correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        name
+        Fantastic Beasts: The Crimes of Grindelwald
       </a>
     </h3>
   </article>
   <article
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
     >
-      <img
-        alt="name"
-        height="175"
-        src="image"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/bohemian-rhapsody.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
     <h3
@@ -52,7 +54,88 @@ exports[`renders correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        name
+        Bohemian Rhapsody
+      </a>
+    </h3>
+  </article>
+  <article
+    className="small-movie-card catalog__movies-card"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+    >
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/macbeth.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <a
+        className="small-movie-card__link"
+        href="movie-page.html"
+        onClick={[Function]}
+      >
+        Macbeth
+      </a>
+    </h3>
+  </article>
+  <article
+    className="small-movie-card catalog__movies-card"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+    >
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/mindhunter.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <a
+        className="small-movie-card__link"
+        href="movie-page.html"
+        onClick={[Function]}
+      >
+        Mindhunter
+      </a>
+    </h3>
+  </article>
+  <article
+    className="small-movie-card catalog__movies-card"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+    >
+      <video
+        className="player__video"
+        muted={true}
+        poster="img/pulp-fiction.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <a
+        className="small-movie-card__link"
+        href="movie-page.html"
+        onClick={[Function]}
+      >
+        Pulp Fiction
       </a>
     </h3>
   </article>
