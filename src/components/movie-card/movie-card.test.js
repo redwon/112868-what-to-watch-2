@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import films from '../../mocks/films';
+import movies from '../../mocks/movies';
 
 import MovieCard from './movie-card';
 
@@ -15,7 +15,7 @@ const createNodeMock = (element) => {
 it(`renders correctly`, () => {
   const tree = renderer
     .create(<MovieCard
-      movie={films[0]}
+      movie={movies[0]}
       onClick={() => {}}
       onHover={() => {}}
     />, {createNodeMock})

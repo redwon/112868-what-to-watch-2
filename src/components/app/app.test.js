@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import films from '../../mocks/films';
+import movies from '../../mocks/movies';
 
-import App from './app';
+import {App} from './app';
 
 const createNodeMock = (element) => {
   if (element.type === `video`) {
@@ -16,7 +16,9 @@ it(`renders correctly`, () => {
   const tree = renderer
     .create(<App
       currentYear={0}
-      movies={films}
+      movies={movies}
+      filteredMovies={movies}
+      onGenreChange={jest.fn()}
     />, {createNodeMock})
     .toJSON();
 
