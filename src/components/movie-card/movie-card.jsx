@@ -9,10 +9,6 @@ class MovieCard extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isPlaying: false,
-    };
-
     this.timer = null;
   }
 
@@ -20,13 +16,13 @@ class MovieCard extends PureComponent {
     this.props.onHover(movie);
 
     this.timer = setTimeout(() => {
-      this.setState({isPlaying: true});
+      this.props.onPlayerChangeState(true);
     }, 1000);
   }
 
   mouseLeaveHandler() {
     clearTimeout(this.timer);
-    this.setState({isPlaying: false});
+    this.props.onPlayerChangeState(false);
   }
 
   render() {
@@ -44,7 +40,7 @@ class MovieCard extends PureComponent {
             src={previewVideo}
             poster={image}
             isMuted={true}
-            isPlaying={this.state.isPlaying}
+            isPlaying={this.props.isPlayerPlaying}
           />
         </div>
         <h3 className="small-movie-card__title">
@@ -68,6 +64,8 @@ MovieCard.propTypes = {
   movie: movieType,
   onClick: PropTypes.func,
   onHover: PropTypes.func,
+  isPlayerPlaying: PropTypes.bool,
+  onPlayerChangeState: PropTypes.func,
 };
 
 export default MovieCard;

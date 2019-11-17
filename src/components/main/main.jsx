@@ -5,8 +5,12 @@ import {movieType} from '../../types';
 
 import MoviesList from '../movies-list/movies-list';
 import GenresList from '../genres-list/genres-list';
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
-const Main = ({copyrightYear, genre, movies, filteredMovies, onGenreChange}) => {
+const MoviesListWrapped = withActiveItem(MoviesList);
+const GenresListWrapped = withActiveItem(GenresList);
+
+const Main = ({copyrightYear, movies, filteredMovies, onGenreChange}) => {
   return (
     <div>
       <div className="visually-hidden">
@@ -174,9 +178,9 @@ const Main = ({copyrightYear, genre, movies, filteredMovies, onGenreChange}) => 
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList genre={genre} movies={movies} onChange={onGenreChange} />
+          <GenresListWrapped movies={movies} onChange={onGenreChange} />
 
-          <MoviesList movies={filteredMovies}/>
+          <MoviesListWrapped movies={filteredMovies}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">
@@ -205,7 +209,6 @@ const Main = ({copyrightYear, genre, movies, filteredMovies, onGenreChange}) => 
 
 Main.propTypes = {
   copyrightYear: PropTypes.number.isRequired,
-  genre: PropTypes.string,
   movies: PropTypes.arrayOf(movieType),
   filteredMovies: PropTypes.arrayOf(movieType),
   onGenreChange: PropTypes.func.isRequired

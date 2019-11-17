@@ -5,23 +5,7 @@ class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isPlaying: props.isPlaying
-    };
-
     this.videoRef = React.createRef();
-  }
-
-  componentDidMount() {
-    const video = this.videoRef.current;
-
-    video.onplay = () => {
-      this.setState({isPlaying: true});
-    };
-
-    video.onpause = () => {
-      this.setState({isPlaying: false});
-    };
   }
 
   componentDidUpdate() {

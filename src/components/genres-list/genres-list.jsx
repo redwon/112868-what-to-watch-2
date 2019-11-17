@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 
 import {movieType} from '../../types';
 
-const GenresList = ({genre, movies, onChange}) => {
+const GenresList = ({movies, onChange, activeIndex, onChangeActiveIndex}) => {
   const genresSet = new Set([`All Genres`, ...movies.map((it) => it.genre)]);
   const listItems = Array.from(genresSet).map((it, i) => (
     <li
       key={i}
-      className={`catalog__genres-item ${it === genre ? `catalog__genres-item--active` : ``}`}
+      className={`catalog__genres-item ${i === activeIndex ? `catalog__genres-item--active` : ``}`}
     >
       <a href="#" className="catalog__genres-link" onClick={(evt) => {
         evt.preventDefault();
         onChange(it);
+        onChangeActiveIndex(i);
       }}>
         {it}
       </a>
@@ -25,9 +26,10 @@ const GenresList = ({genre, movies, onChange}) => {
 };
 
 GenresList.propTypes = {
-  genre: PropTypes.string,
   movies: PropTypes.arrayOf(movieType),
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  activeIndex: PropTypes.number,
+  onChangeActiveIndex: PropTypes.func,
 };
 
 export default GenresList;
