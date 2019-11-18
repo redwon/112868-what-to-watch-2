@@ -1,53 +1,37 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {movieType} from '../../types';
 
 import MovieCard from '../movie-card/movie-card';
+import withPlayerState from '../../hocs/with-player-state/with-player-state';
 
-class MoviesList extends PureComponent {
-  constructor(props) {
-    super(props);
+const MovieCardWrapped = withPlayerState(MovieCard);
 
-    this.state = {
-      activeCard: null,
-    };
-  }
-
-  onHoverCard(movie) {
-    this.setState(() => {
-      return {
-        activeCard: movie
-      };
-    });
-  }
-
-  getListItems() {
-    const {movies, onClickTitle} = this.props;
-
+const MoviesList = ({movies, onClickTitle, onChangeActiveIndex}) => {
+  const getListItems = () => {
     return movies.map((it, i) => (
-      <MovieCard
+      <MovieCardWrapped
         key={i}
         movie={it}
         onClick={onClickTitle}
-        onHover={(movie) => this.onHoverCard(movie)}
+        onHover={() => onChangeActiveIndex(i)}
       />
     ));
-  }
+  };
 
-  render() {
-    return (
-      <div className="catalog__movies-list">
-        {this.getListItems()}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="catalog__movies-list">
+      {getListItems()}
+    </div>
+  );
+};
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(movieType),
   onClickTitle: PropTypes.func,
-  onHoverCard: PropTypes.func,
+  activeIndex: PropTypes.number,
+  onChangeActiveIndex: PropTypes.func,
 };
 
 export default MoviesList;
