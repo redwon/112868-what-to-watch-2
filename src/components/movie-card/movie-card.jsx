@@ -1,6 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import {movieType} from '../../types';
+
 import VideoPlayer from '../video-player/video-player';
 
 class MovieCard extends PureComponent {
@@ -63,11 +65,7 @@ class MovieCard extends PureComponent {
 }
 
 MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    name: PropTypes.string,
-    image: PropTypes.string,
-    previewVideo: PropTypes.string,
-  }),
+  movie: movieType,
   onClick: PropTypes.func,
   onHover: PropTypes.func,
 };

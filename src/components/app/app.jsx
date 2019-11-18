@@ -1,23 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+
+import {movieType} from '../../types';
+
+import {ActionCreator} from '../../reducer';
 
 import Main from '../main/main';
 
-const App = ({currentYear, movies}) => {
+const App = ({currentYear, genre, movies, filteredMovies, onGenreChange}) => {
   return (
     <Main
       copyrightYear={currentYear}
+      genre={genre}
       movies={movies}
+      filteredMovies={filteredMovies}
+      onGenreChange={onGenreChange}
     />
   );
 };
 
 App.propTypes = {
   currentYear: PropTypes.number.isRequired,
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    image: PropTypes.string
-  })),
+  genre: PropTypes.string,
+  movies: PropTypes.arrayOf(movieType),
+  filteredMovies: PropTypes.arrayOf(movieType),
+  onGenreChange: PropTypes.func.isRequired
 };
 
-export default App;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  genre: state.genre,
+  movies: state.movies,
+  filteredMovies: state.filteredMovies
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onGenreChange: (genre) => {
+    dispatch(ActionCreator.changeGenre(genre));
+    dispatch(ActionCreator.filterMovies(genre));
+  }
+});
+
+export {App};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
