@@ -15,7 +15,6 @@ const createNodeMock = (element) => {
 it(`renders correctly`, () => {
   const tree = renderer
     .create(<App
-      currentYear={0}
       movies={movies}
       filteredMovies={movies}
       onGenreChange={jest.fn()}

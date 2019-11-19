@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {movieType} from '../../types';
+import {MovieType, GenresType} from '../../types';
 
 const GenresList = ({movies, onChange, activeIndex, onChangeActiveIndex}) => {
-  const genresSet = new Set([`All Genres`, ...movies.map((it) => it.genre)]);
+  const genresSet = new Set([GenresType.ALL_GENRES, ...movies.map((it) => it.genre)]);
   const listItems = Array.from(genresSet).map((it, i) => (
     <li
       key={i}
@@ -26,7 +26,7 @@ const GenresList = ({movies, onChange, activeIndex, onChangeActiveIndex}) => {
 };
 
 GenresList.propTypes = {
-  movies: PropTypes.arrayOf(movieType),
+  movies: PropTypes.arrayOf(MovieType),
   onChange: PropTypes.func.isRequired,
   activeIndex: PropTypes.number,
   onChangeActiveIndex: PropTypes.func,

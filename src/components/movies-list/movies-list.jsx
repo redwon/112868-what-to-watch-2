@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {movieType} from '../../types';
+import {MovieType} from '../../types';
 
 import MovieCard from '../movie-card/movie-card';
 import withPlayerState from '../../hocs/with-player-state/with-player-state';
@@ -28,7 +28,7 @@ const MoviesList = ({movies, onClickTitle, onChangeActiveIndex}) => {
 };
 
 MoviesList.propTypes = {
-  movies: PropTypes.arrayOf(movieType),
+  movies: PropTypes.arrayOf(MovieType),
   onClickTitle: PropTypes.func,
   activeIndex: PropTypes.number,
   onChangeActiveIndex: PropTypes.func,
