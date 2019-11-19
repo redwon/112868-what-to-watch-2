@@ -23,7 +23,7 @@ exports[`renders correctly 1`] = `
       href="#"
       onClick={[Function]}
     >
-      Thrillers
+      Adventure
     </a>
   </li>
   <li
@@ -34,29 +34,7 @@ exports[`renders correctly 1`] = `
       href="#"
       onClick={[Function]}
     >
-      Romance
-    </a>
-  </li>
-  <li
-    className="catalog__genres-item "
-  >
-    <a
-      className="catalog__genres-link"
-      href="#"
-      onClick={[Function]}
-    >
-      Horror
-    </a>
-  </li>
-  <li
-    className="catalog__genres-item "
-  >
-    <a
-      className="catalog__genres-link"
-      href="#"
-      onClick={[Function]}
-    >
-      Comedy
+      Action
     </a>
   </li>
 </ul>

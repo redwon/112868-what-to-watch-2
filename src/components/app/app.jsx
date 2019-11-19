@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {movieType} from '../../types';
-
-import {ActionCreator} from '../../reducer';
+import {MovieType} from '../../types';
+import {getGenreMovies} from '../../selectors';
+import {ActionCreator} from '../../reducer/genre/genre';
 
 import Main from '../main/main';
 
-const App = ({currentYear, genre, movies, filteredMovies, onGenreChange}) => {
+const App = ({genre, movies, filteredMovies, onGenreChange}) => {
   return (
     <Main
-      copyrightYear={currentYear}
       genre={genre}
       movies={movies}
       filteredMovies={filteredMovies}
@@ -21,23 +20,21 @@ const App = ({currentYear, genre, movies, filteredMovies, onGenreChange}) => {
 };
 
 App.propTypes = {
-  currentYear: PropTypes.number.isRequired,
   genre: PropTypes.string,
-  movies: PropTypes.arrayOf(movieType),
-  filteredMovies: PropTypes.arrayOf(movieType),
+  movies: PropTypes.arrayOf(MovieType),
+  filteredMovies: PropTypes.arrayOf(MovieType),
   onGenreChange: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   genre: state.genre,
   movies: state.movies,
-  filteredMovies: state.filteredMovies
+  filteredMovies: getGenreMovies(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onGenreChange: (genre) => {
     dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.filterMovies(genre));
   }
 });
 

@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import {movieType} from '../../types';
+import {MovieType} from '../../types';
 
 import VideoPlayer from '../video-player/video-player';
 
@@ -27,7 +27,7 @@ class MovieCard extends PureComponent {
 
   render() {
     const {movie, onClick} = this.props;
-    const {name, image, previewVideo} = movie;
+    const {name, posterImage, previewVideoLink} = movie;
 
     return (
       <article
@@ -37,8 +37,8 @@ class MovieCard extends PureComponent {
       >
         <div className="small-movie-card__image">
           <VideoPlayer
-            src={previewVideo}
-            poster={image}
+            src={previewVideoLink}
+            poster={posterImage}
             isMuted={true}
             isPlaying={this.props.isPlayerPlaying}
           />
@@ -61,7 +61,7 @@ class MovieCard extends PureComponent {
 }
 
 MovieCard.propTypes = {
-  movie: movieType,
+  movie: MovieType,
   onClick: PropTypes.func,
   onHover: PropTypes.func,
   isPlayerPlaying: PropTypes.bool,

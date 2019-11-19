@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {movieType} from '../../types';
+import {MovieType} from '../../types';
 
 import MoviesList from '../movies-list/movies-list';
 import GenresList from '../genres-list/genres-list';
@@ -10,7 +10,7 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item';
 const MoviesListWrapped = withActiveItem(MoviesList);
 const GenresListWrapped = withActiveItem(GenresList);
 
-const Main = ({copyrightYear, movies, filteredMovies, onGenreChange}) => {
+const Main = ({movies, filteredMovies, onGenreChange}) => {
   return (
     <div>
       <div className="visually-hidden">
@@ -199,7 +199,7 @@ const Main = ({copyrightYear, movies, filteredMovies, onGenreChange}) => {
           </div>
 
           <div className="copyright">
-            <p>© {copyrightYear} What to watch Ltd.</p>
+            <p>© {new Date().getFullYear()} What to watch Ltd.</p>
           </div>
         </footer>
       </div>
@@ -208,9 +208,8 @@ const Main = ({copyrightYear, movies, filteredMovies, onGenreChange}) => {
 };
 
 Main.propTypes = {
-  copyrightYear: PropTypes.number.isRequired,
-  movies: PropTypes.arrayOf(movieType),
-  filteredMovies: PropTypes.arrayOf(movieType),
+  movies: PropTypes.arrayOf(MovieType),
+  filteredMovies: PropTypes.arrayOf(MovieType),
   onGenreChange: PropTypes.func.isRequired
 };
 

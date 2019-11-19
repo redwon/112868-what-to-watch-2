@@ -15,7 +15,7 @@ exports[`renders correctly 1`] = `
       <video
         className="player__video"
         muted={true}
-        poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+        poster="https://htmlacademy-react-2.appspot.com/wtw/static/film/poster/War_of_the_Worlds.jpg"
         src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
@@ -27,7 +27,7 @@ exports[`renders correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        Fantastic Beasts: The Crimes of Grindelwald
+        War of the Worlds
       </a>
     </h3>
   </article>
@@ -42,7 +42,7 @@ exports[`renders correctly 1`] = `
       <video
         className="player__video"
         muted={true}
-        poster="img/bohemian-rhapsody.jpg"
+        poster="https://htmlacademy-react-2.appspot.com/wtw/static/film/poster/bronson.jpg"
         src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
@@ -54,88 +54,7 @@ exports[`renders correctly 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        Bohemian Rhapsody
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        className="player__video"
-        muted={true}
-        poster="img/macbeth.jpg"
-        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
-      >
-        Macbeth
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        className="player__video"
-        muted={true}
-        poster="img/mindhunter.jpg"
-        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
-      >
-        Mindhunter
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        className="player__video"
-        muted={true}
-        poster="img/pulp-fiction.jpg"
-        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="movie-page.html"
-        onClick={[Function]}
-      >
-        Pulp Fiction
+        Bronson
       </a>
     </h3>
   </article>

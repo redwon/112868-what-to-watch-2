@@ -1,8 +1,25 @@
-import {shape, string} from 'prop-types';
+import {shape, string, number, arrayOf, bool} from 'prop-types';
 
-export const movieType = shape({
+export const MovieType = shape({
+  id: number,
   name: string,
-  image: string,
+  description: string,
   genre: string,
-  previewVideo: string,
+  rating: number,
+  scoresCount: number,
+  director: string,
+  starring: arrayOf(string),
+  runTime: number,
+  released: number,
+  isFavorite: bool,
+  posterImage: string,
+  previewImage: string,
+  backgroundImage: string,
+  backgroundColor: string,
+  videoLink: string,
+  previewVideoLink: string
 });
+
+export const GenresType = {
+  ALL_GENRES: `All Genres`
+};
