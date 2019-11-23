@@ -23,3 +23,10 @@ export const MovieType = shape({
 export const GenresType = {
   ALL_GENRES: `All Genres`
 };
+
+export const UserType = shape({
+  id: number,
+  email: string,
+  name: string,
+  avatarUrl: string,
+});

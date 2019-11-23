@@ -7,8 +7,13 @@ import {getGenreMovies} from '../../selectors';
 import {ActionCreator} from '../../reducer/genre/genre';
 
 import Main from '../main/main';
+import SignIn from '../sign-in/sign-in';
 
-const App = ({genre, movies, filteredMovies, onGenreChange}) => {
+const App = ({genre, movies, filteredMovies, onGenreChange, isAuthorizationRequired}) => {
+  if (isAuthorizationRequired) {
+    return <SignIn />;
+  }
+
   return (
     <Main
       genre={genre}
@@ -23,13 +28,15 @@ App.propTypes = {
   genre: PropTypes.string,
   movies: PropTypes.arrayOf(MovieType),
   filteredMovies: PropTypes.arrayOf(MovieType),
-  onGenreChange: PropTypes.func.isRequired
+  onGenreChange: PropTypes.func.isRequired,
+  isAuthorizationRequired: PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   genre: state.genre,
   movies: state.movies,
   filteredMovies: getGenreMovies(state),
+  isAuthorizationRequired: state.isAuthorizationRequired,
 });
 
 const mapDispatchToProps = (dispatch) => ({
