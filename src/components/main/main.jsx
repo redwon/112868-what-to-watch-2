@@ -13,7 +13,11 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item';
 const MoviesListWrapped = withActiveItem(MoviesList);
 const GenresListWrapped = withActiveItem(GenresList);
 
-const Main = ({movies, filteredMovies, onGenreChange}) => {
+const Main = ({movies, filteredMovies, onGenreChange, history}) => {
+  const onClickTitleHandler = (movie) => {
+    history.push(`/movie/${movie.id}`);
+  };
+
   return (
     <div>
       <div className="visually-hidden">
@@ -164,7 +168,7 @@ const Main = ({movies, filteredMovies, onGenreChange}) => {
 
           <GenresListWrapped movies={movies} onChange={onGenreChange} />
 
-          <MoviesListWrapped movies={filteredMovies}/>
+          <MoviesListWrapped movies={filteredMovies} onClickTitle={onClickTitleHandler} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">
@@ -183,6 +187,7 @@ Main.propTypes = {
   movies: PropTypes.arrayOf(MovieType),
   filteredMovies: PropTypes.arrayOf(MovieType),
   onGenreChange: PropTypes.func.isRequired,
+  history: PropTypes.object,
 };
 
 export default Main;
