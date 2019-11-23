@@ -5,6 +5,8 @@ import movies from '../../mocks/movies';
 
 import Main from './main';
 
+jest.mock(`../header/header`, () => () => `Header`);
+
 const createNodeMock = (element) => {
   if (element.type === `video`) {
     return {};
