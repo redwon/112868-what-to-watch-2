@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {MemoryRouter} from 'react-router-dom';
 
 import movies from '../../mocks/movies';
 
@@ -16,11 +17,13 @@ const createNodeMock = (element) => {
 
 it(`renders correctly`, () => {
   const tree = renderer
-    .create(<App
-      movies={movies}
-      filteredMovies={movies}
-      onGenreChange={jest.fn()}
-    />, {createNodeMock})
+    .create(<MemoryRouter>
+      <App
+        movies={movies}
+        filteredMovies={movies}
+        onGenreChange={jest.fn()}
+      />
+    </MemoryRouter>, {createNodeMock})
     .toJSON();
 
   expect(tree).toMatchSnapshot();

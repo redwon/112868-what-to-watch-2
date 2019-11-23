@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Switch, Route} from 'react-router-dom';
 
 import {MovieType} from '../../types';
 import {getGenreMovies} from '../../selectors';
 import {ActionCreator} from '../../reducer/genre/genre';
 
 import Main from '../main/main';
+import Movie from '../movie/movie';
 import SignIn from '../sign-in/sign-in';
 
 const App = ({genre, movies, filteredMovies, onGenreChange, isAuthorizationRequired}) => {
@@ -15,12 +17,28 @@ const App = ({genre, movies, filteredMovies, onGenreChange, isAuthorizationRequi
   }
 
   return (
-    <Main
-      genre={genre}
-      movies={movies}
-      filteredMovies={filteredMovies}
-      onGenreChange={onGenreChange}
-    />
+    <Switch>
+      <Route
+        path="/"
+        exact
+        render={(props) => (
+          <Main
+            {...props}
+            genre={genre}
+            movies={movies}
+            filteredMovies={filteredMovies}
+            onGenreChange={onGenreChange}
+          />
+        )}
+      />
+      <Route
+        path="/movie/:id"
+        exact
+        render={(props) => (
+          <Movie {...props} />
+        )}
+      />
+    </Switch>
   );
 };
 

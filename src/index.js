@@ -8,6 +8,7 @@ import {compose} from 'recompose';
 import {reducer} from './reducer';
 import {Operations} from './reducer/movies/movies';
 import {configureAPI} from './api';
+import {BrowserRouter} from 'react-router-dom';
 
 import App from './components/app/app';
 
@@ -25,7 +26,9 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <App/>
+        <BrowserRouter>
+          <App/>
+        </BrowserRouter>
       </Provider>,
       document.querySelector(`#root`)
   );
