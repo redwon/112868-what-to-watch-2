@@ -8,14 +8,13 @@ import withPlayerState from '../../hocs/with-player-state/with-player-state';
 
 const MovieCardWrapped = withPlayerState(MovieCard);
 
-const MoviesList = ({movies, onClickTitle, onChangeActiveIndex}) => {
+const MoviesList = ({movies, onClickTitle}) => {
   const getListItems = () => {
     return movies.map((it, i) => (
       <MovieCardWrapped
         key={i}
         movie={it}
         onClick={onClickTitle}
-        onHover={() => onChangeActiveIndex(i)}
       />
     ));
   };
@@ -31,7 +30,6 @@ MoviesList.propTypes = {
   movies: PropTypes.arrayOf(MovieType),
   onClickTitle: PropTypes.func,
   activeIndex: PropTypes.number,
-  onChangeActiveIndex: PropTypes.func,
 };
 
 export default MoviesList;

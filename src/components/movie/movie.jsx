@@ -3,19 +3,29 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {MovieType} from '../../types';
-import {getGenreMovies} from '../../selectors';
+import {getRelatedMovies, getMovieById} from '../../selectors';
 import {ActionCreator} from '../../reducer/genre/genre';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import MoviesList from '../movies-list/movies-list';
+import MovieTabs from '../movie-tabs/movie-tabs';
 
-const Movie = ({movie, filteredMovies, onGenreChange}) => {
-  onGenreChange(movie.genre);
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
+
+const MovieTabsWrapped = withActiveItem(MovieTabs);
+
+const Movie = ({movie, relatedMovies}) => {
+  if (!movie) {
+    return null;
+  }
 
   return (
     <Fragment>
-      <section className="movie-card movie-card--full">
+      <section
+        className="movie-card movie-card--full"
+        style={{backgroundColor: movie.backgroundColor}}
+      >
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={movie.backgroundImage} alt={movie.name} />
@@ -64,53 +74,7 @@ const Movie = ({movie, filteredMovies, onGenreChange}) => {
             </div>
 
             <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">
-                      Overview
-                    </a>
-                  </li>
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">
-                      Details
-                    </a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">
-                      Reviews
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="movie-card__text movie-card__row">
-                <div className="movie-card__text-col">
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Director</strong>
-                    <span className="movie-card__details-value">{movie.director}</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Starring</strong>
-                    <span className="movie-card__details-value">{movie.starring}</span>
-                  </p>
-                </div>
-
-                <div className="movie-card__text-col">
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Run Time</strong>
-                    <span className="movie-card__details-value">{movie.runTime}</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Genre</strong>
-                    <span className="movie-card__details-value">{movie.genre}</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Released</strong>
-                    <span className="movie-card__details-value">{movie.released}</span>
-                  </p>
-                </div>
-              </div>
+              <MovieTabsWrapped movie={movie} />
             </div>
           </div>
         </div>
@@ -120,7 +84,7 @@ const Movie = ({movie, filteredMovies, onGenreChange}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MoviesList movies={filteredMovies} />
+          <MoviesList movies={relatedMovies} />
         </section>
 
         <Footer />
@@ -131,18 +95,19 @@ const Movie = ({movie, filteredMovies, onGenreChange}) => {
 
 Movie.propTypes = {
   movie: MovieType,
-  filteredMovies: PropTypes.arrayOf(MovieType),
-  onGenreChange: PropTypes.func,
+  relatedMovies: PropTypes.arrayOf(MovieType),
+  match: PropTypes.object,
 };
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  filteredMovies: getGenreMovies(state),
+const mapStateToProps = (state, props) => Object.assign({}, props, {
+  movie: getMovieById(state, props.match.params.id),
+  relatedMovies: getRelatedMovies(state, props.match.params.id),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onGenreChange: (genre) => {
     dispatch(ActionCreator.changeGenre(genre));
-  }
+  },
 });
 
 export {Movie};
