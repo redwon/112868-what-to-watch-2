@@ -11,7 +11,7 @@ it(`renders correctly`, () => {
   const tree = renderer
     .create(<Movie
       movie={movies[0]}
-      filteredMovies={movies}
+      relatedMovies={movies.slice(0, 4)}
       onGenreChange={jest.fn()}
     />)
     .toJSON();
