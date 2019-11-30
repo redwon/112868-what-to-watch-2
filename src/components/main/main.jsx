@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import {MovieType} from '../../types';
+import {getGenreMovies} from '../../selectors';
+import {ActionCreator} from '../../reducer/genre/genre';
+import {ActionCreator as ItemsActionCreator} from '../../reducer/items-to-show/items-to-show';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -9,11 +13,12 @@ import MoviesList from '../movies-list/movies-list';
 import GenresList from '../genres-list/genres-list';
 
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
+import ShowMore from '../show-more/show-more';
 
 const MoviesListWrapped = withActiveItem(MoviesList);
 const GenresListWrapped = withActiveItem(GenresList);
 
-const Main = ({movies, filteredMovies, onGenreChange, history}) => {
+const Main = ({movies, filteredMovies, onGenreChange, onChangeItemsToShow, itemsToShow, history}) => {
   const onClickTitleHandler = (movie) => {
     history.push(`/movie/${movie.id}`);
   };
@@ -165,16 +170,9 @@ const Main = ({movies, filteredMovies, onGenreChange, history}) => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
           <GenresListWrapped movies={movies} onChange={onGenreChange} />
-
           <MoviesListWrapped movies={filteredMovies} onClickTitle={onClickTitleHandler} />
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
+          {(movies.length > itemsToShow) && <ShowMore itemsToShow={itemsToShow} onClick={onChangeItemsToShow} />}
         </section>
 
         <Footer />
@@ -187,7 +185,26 @@ Main.propTypes = {
   movies: PropTypes.arrayOf(MovieType),
   filteredMovies: PropTypes.arrayOf(MovieType),
   onGenreChange: PropTypes.func.isRequired,
+  onChangeItemsToShow: PropTypes.func.isRequired,
+  itemsToShow: PropTypes.number.isRequired,
   history: PropTypes.object,
 };
 
-export default Main;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  movies: state.movies,
+  filteredMovies: getGenreMovies(state),
+  itemsToShow: state.itemsToShow,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onGenreChange: (genre) => {
+    dispatch(ActionCreator.changeGenre(genre));
+  },
+  onChangeItemsToShow: (count) => {
+    dispatch(ItemsActionCreator.itemsToShow(count));
+  }
+});
+
+export {Main};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

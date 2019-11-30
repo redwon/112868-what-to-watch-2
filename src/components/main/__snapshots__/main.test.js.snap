@@ -260,6 +260,7 @@ exports[`renders correctly 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
@@ -287,6 +288,7 @@ exports[`renders correctly 1`] = `
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
@@ -318,6 +320,7 @@ exports[`renders correctly 1`] = `
       >
         <button
           className="catalog__button"
+          onClick={[Function]}
           type="button"
         >
           Show more
