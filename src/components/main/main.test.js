@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 
 import movies from '../../mocks/movies';
 
-import Main from './main';
+import {Main} from './main';
 
 jest.mock(`../header/header`, () => () => `Header`);
 
@@ -20,6 +20,8 @@ it(`renders correctly`, () => {
       movies={movies}
       filteredMovies={movies}
       onGenreChange={jest.fn()}
+      onChangeItemsToShow={jest.fn()}
+      itemsToShow={0}
     />, {createNodeMock})
     .toJSON();
 

@@ -6,6 +6,7 @@ import movies from '../../mocks/movies';
 
 import {App} from './app';
 
+jest.mock(`../main/main`, () => () => `Main`);
 jest.mock(`../header/header`, () => () => `Header`);
 
 const createNodeMock = (element) => {

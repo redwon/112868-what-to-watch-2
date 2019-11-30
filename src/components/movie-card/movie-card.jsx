@@ -13,7 +13,11 @@ class MovieCard extends PureComponent {
   }
 
   mouseEnterHandler(movie) {
-    this.props.onHover(movie);
+    const {onHover} = this.props;
+
+    if (onHover) {
+      onHover(movie);
+    }
 
     this.timer = setTimeout(() => {
       this.props.onPlayerChangeState(true);
@@ -34,6 +38,7 @@ class MovieCard extends PureComponent {
         className="small-movie-card catalog__movies-card"
         onMouseEnter={() => this.mouseEnterHandler(movie)}
         onMouseLeave={() => this.mouseLeaveHandler()}
+        onClick={() => onClick(movie)}
       >
         <div className="small-movie-card__image">
           <VideoPlayer

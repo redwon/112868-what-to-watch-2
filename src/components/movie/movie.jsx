@@ -15,10 +15,14 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
 const MovieTabsWrapped = withActiveItem(MovieTabs);
 
-const Movie = ({movie, relatedMovies}) => {
+const Movie = ({movie, relatedMovies, history}) => {
   if (!movie) {
     return null;
   }
+
+  const onClickTitleHandler = (cardMovie) => {
+    history.replace(`/movie/${cardMovie.id}`);
+  };
 
   return (
     <Fragment>
@@ -84,7 +88,7 @@ const Movie = ({movie, relatedMovies}) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MoviesList movies={relatedMovies} />
+          <MoviesList movies={relatedMovies} onClickTitle={onClickTitleHandler} />
         </section>
 
         <Footer />
@@ -97,6 +101,7 @@ Movie.propTypes = {
   movie: MovieType,
   relatedMovies: PropTypes.arrayOf(MovieType),
   match: PropTypes.object,
+  history: PropTypes.object,
 };
 
 const mapStateToProps = (state, props) => Object.assign({}, props, {
