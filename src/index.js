@@ -7,6 +7,7 @@ import {compose} from 'recompose';
 
 import {reducer} from './reducer';
 import {Operations} from './reducer/movies/movies';
+import {Operations as PromoMovieOperations} from './reducer/promo-movie/promo-movie';
 import {configureAPI} from './api';
 import {BrowserRouter} from 'react-router-dom';
 
@@ -23,6 +24,7 @@ const init = () => {
   );
 
   store.dispatch(Operations.loadMovies());
+  store.dispatch(PromoMovieOperations.loadPromoMovie());
 
   ReactDOM.render(
       <Provider store={store}>

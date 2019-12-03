@@ -7,6 +7,11 @@ import Main from '../main/main';
 import Movie from '../movie/movie';
 import SignIn from '../sign-in/sign-in';
 
+import withPlayerState from '../../hocs/with-player-state/with-player-state';
+
+const MainWrapped = withPlayerState(Main);
+const MovieWrapped = withPlayerState(Movie);
+
 const App = ({isAuthorizationRequired}) => {
   if (isAuthorizationRequired) {
     return <SignIn />;
@@ -18,14 +23,14 @@ const App = ({isAuthorizationRequired}) => {
         path="/"
         exact
         render={(props) => (
-          <Main {...props} />
+          <MainWrapped {...props} />
         )}
       />
       <Route
         path="/movie/:id"
         exact
         render={(props) => (
-          <Movie {...props} />
+          <MovieWrapped {...props} />
         )}
       />
     </Switch>

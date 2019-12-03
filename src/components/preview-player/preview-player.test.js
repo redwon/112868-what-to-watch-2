@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import VideoPlayer from './video-player';
+import PreviewPlayer from './preview-player';
 
 const createNodeMock = (element) => {
   if (element.type === `video`) {
@@ -12,7 +12,7 @@ const createNodeMock = (element) => {
 
 it(`renders correctly`, () => {
   const tree = renderer
-    .create(<VideoPlayer
+    .create(<PreviewPlayer
       src="src"
       poster="poster"
     />, {createNodeMock})

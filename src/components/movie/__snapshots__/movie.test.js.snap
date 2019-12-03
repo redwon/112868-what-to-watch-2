@@ -52,6 +52,7 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -240,7 +241,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="#"
               onClick={[Function]}
             >
               War of the Worlds
@@ -268,7 +269,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="#"
               onClick={[Function]}
             >
               Bronson

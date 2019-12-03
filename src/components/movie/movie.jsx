@@ -10,12 +10,15 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 import MoviesList from '../movies-list/movies-list';
 import MovieTabs from '../movie-tabs/movie-tabs';
+import MoviePlayer from '../movie-player/movie-player';
 
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
+import withVideo from '../../hocs/with-video/with-video';
 
+const MoviePlayerWrapped = withVideo(MoviePlayer);
 const MovieTabsWrapped = withActiveItem(MovieTabs);
 
-const Movie = ({movie, relatedMovies, history}) => {
+const Movie = ({movie, relatedMovies, isPlayerPlaying, onPlayerChangeState, history}) => {
   if (!movie) {
     return null;
   }
@@ -23,6 +26,24 @@ const Movie = ({movie, relatedMovies, history}) => {
   const onClickTitleHandler = (cardMovie) => {
     history.replace(`/movie/${cardMovie.id}`);
   };
+
+  const onPlayMovieHandler = () => {
+    onPlayerChangeState(true);
+  };
+
+  const onExitPlayerHandler = () => {
+    onPlayerChangeState(false);
+  };
+
+  if (isPlayerPlaying) {
+    return (
+      <MoviePlayerWrapped
+        src={movie.videoLink}
+        movie={movie}
+        onExit={onExitPlayerHandler}
+      />
+    );
+  }
 
   return (
     <Fragment>
@@ -46,7 +67,11 @@ const Movie = ({movie, relatedMovies, history}) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button
+                  className="btn btn--play movie-card__button"
+                  type="button"
+                  onClick={onPlayMovieHandler}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -100,6 +125,8 @@ const Movie = ({movie, relatedMovies, history}) => {
 Movie.propTypes = {
   movie: MovieType,
   relatedMovies: PropTypes.arrayOf(MovieType),
+  isPlayerPlaying: PropTypes.bool,
+  onPlayerChangeState: PropTypes.func,
   match: PropTypes.object,
   history: PropTypes.object,
 };
