@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {MovieType} from '../../types';
@@ -18,10 +19,19 @@ import withVideo from '../../hocs/with-video/with-video';
 const MoviePlayerWrapped = withVideo(MoviePlayer);
 const MovieTabsWrapped = withActiveItem(MovieTabs);
 
-const Movie = ({movie, relatedMovies, isPlayerPlaying, onPlayerChangeState, history}) => {
-  if (!movie) {
+const Movie = (props) => {
+  if (!props.movie) {
     return null;
   }
+
+  const {
+    movie,
+    relatedMovies,
+    isPlayerPlaying,
+    onPlayerChangeState,
+    isAuthorizationRequired,
+    history,
+  } = props;
 
   const onClickTitleHandler = (cardMovie) => {
     history.replace(`/movie/${cardMovie.id}`);
@@ -83,9 +93,12 @@ const Movie = ({movie, relatedMovies, isPlayerPlaying, onPlayerChangeState, hist
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">
+                {!isAuthorizationRequired && <Link
+                  to={`/movie/${movie.id}/review`}
+                  className="btn movie-card__button"
+                >
                   Add review
-                </a>
+                </Link>}
               </div>
             </div>
           </div>
@@ -127,6 +140,7 @@ Movie.propTypes = {
   relatedMovies: PropTypes.arrayOf(MovieType),
   isPlayerPlaying: PropTypes.bool,
   onPlayerChangeState: PropTypes.func,
+  isAuthorizationRequired: PropTypes.bool,
   match: PropTypes.object,
   history: PropTypes.object,
 };
@@ -134,6 +148,7 @@ Movie.propTypes = {
 const mapStateToProps = (state, props) => Object.assign({}, props, {
   movie: getMovieById(state, props.match.params.id),
   relatedMovies: getRelatedMovies(state, props.match.params.id),
+  isAuthorizationRequired: state.isAuthorizationRequired
 });
 
 const mapDispatchToProps = (dispatch) => ({
