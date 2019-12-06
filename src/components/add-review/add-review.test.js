@@ -5,6 +5,8 @@ import movies from '../../mocks/movies';
 
 import {AddReview} from './add-review';
 
+jest.mock(`../header/header`, () => () => `Header`);
+
 it(`renders correctly`, () => {
   const tree = renderer
     .create(<AddReview

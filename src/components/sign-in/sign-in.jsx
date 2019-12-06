@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {Operations} from '../../reducer/user/user';
+
+import Header from '../header/header';
 import Footer from '../footer/footer';
 
 const SignIn = ({onLogin}) => {
@@ -24,17 +26,9 @@ const SignIn = ({onLogin}) => {
 
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <a href="main.html" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
-
+      <Header className="user-page__head" isHideUserBlock={true}>
         <h1 className="page-title user-page__title">Sign in</h1>
-      </header>
+      </Header>
       <div className="sign-in user-page__content">
         <form className="sign-in__form" onSubmit={submitHandler}>
           <div className="sign-in__fields">

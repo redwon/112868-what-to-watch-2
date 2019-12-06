@@ -1,4 +1,4 @@
-export const initialState = false;
+export const initialState = true;
 
 export const ActionType = {
   REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,

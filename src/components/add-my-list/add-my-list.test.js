@@ -1,14 +1,16 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import {SignIn} from './sign-in';
+import movies from '../../mocks/movies';
 
-jest.mock(`../header/header`, () => () => `Header`);
+import {AddMyList} from './add-my-list';
 
 it(`renders correctly`, () => {
   const tree = renderer
-    .create(<SignIn
-      onLogin={jest.fn()}
+    .create(<AddMyList
+      movie={movies[0]}
+      type="promo"
+      onToggleFavorite={jest.fn()}
     />)
     .toJSON();
 

@@ -68,23 +68,7 @@ Array [
                 Play
               </span>
             </button>
-            <button
-              className="btn btn--list movie-card__button"
-              type="button"
-            >
-              <svg
-                height="20"
-                viewBox="0 0 19 20"
-                width="19"
-              >
-                <use
-                  xlinkHref="#add"
-                />
-              </svg>
-              <span>
-                My list
-              </span>
-            </button>
+            AddMyList
             <a
               className="btn movie-card__button"
               href="/movie/1/review"

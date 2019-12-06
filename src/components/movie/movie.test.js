@@ -7,6 +7,7 @@ import movies from '../../mocks/movies';
 import {Movie} from './movie';
 
 jest.mock(`../header/header`, () => () => `Header`);
+jest.mock(`../add-my-list/add-my-list`, () => () => `AddMyList`);
 
 it(`renders correctly`, () => {
   const tree = renderer
