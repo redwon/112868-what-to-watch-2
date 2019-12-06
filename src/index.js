@@ -9,7 +9,8 @@ import {reducer} from './reducer';
 import {Operations} from './reducer/movies/movies';
 import {Operations as PromoMovieOperations} from './reducer/promo-movie/promo-movie';
 import {configureAPI} from './api';
-import {BrowserRouter} from 'react-router-dom';
+import {Router} from 'react-router-dom';
+import history from './history';
 
 import App from './components/app/app';
 
@@ -28,9 +29,9 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <BrowserRouter>
+        <Router history={history}>
           <App/>
-        </BrowserRouter>
+        </Router>
       </Provider>,
       document.querySelector(`#root`)
   );

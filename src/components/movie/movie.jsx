@@ -12,6 +12,7 @@ import Footer from '../footer/footer';
 import MoviesList from '../movies-list/movies-list';
 import MovieTabs from '../movie-tabs/movie-tabs';
 import MoviePlayer from '../movie-player/movie-player';
+import AddMyList from '../add-my-list/add-my-list';
 
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import withVideo from '../../hocs/with-video/with-video';
@@ -66,7 +67,7 @@ const Movie = (props) => {
             <img src={movie.backgroundImage} alt={movie.name} />
           </div>
 
-          <Header />
+          <Header className="movie-card__head" />
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -87,12 +88,9 @@ const Movie = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+
+                <AddMyList movie={movie} />
+
                 {!isAuthorizationRequired && <Link
                   to={`/movie/${movie.id}/review`}
                   className="btn movie-card__button"

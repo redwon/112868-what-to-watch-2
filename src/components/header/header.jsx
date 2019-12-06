@@ -1,11 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import {UserType} from '../../types';
-import {ActionCreator} from '../../reducer/authorization/authorization';
 
-const Header = ({user, onSignIn}) => {
+const Header = (props) => {
+  const {user, isHideUserBlock} = props;
+
   const getUserBlock = () => {
     if (user) {
       return (
@@ -21,53 +23,49 @@ const Header = ({user, onSignIn}) => {
     }
 
     return (
-      <a
+      <Link
+        to="/login"
         className="user-block__link"
-        href="#"
-        onClick={onSignInHandler}
       >
         Sign in
-      </a>
+      </Link>
     );
   };
 
-  const onSignInHandler = (evt) => {
-    evt.preventDefault();
-    onSignIn();
-  };
-
   return (
-    <header className="page-header movie-card__head">
+    <header className={`page-header ${props.className ? props.className : ``}`}>
+      <h1 className="visually-hidden">WTW</h1>
       <div className="logo">
-        <a className="logo__link">
+        <Link
+          to="/"
+          className="logo__link"
+        >
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
-        </a>
+        </Link>
       </div>
 
-      <div className="user-block">
+      {props.children}
+
+      {!isHideUserBlock && <div className="user-block">
         {getUserBlock()}
-      </div>
+      </div>}
     </header>
   );
 };
 
 Header.propTypes = {
   user: UserType,
-  onSignIn: PropTypes.func,
+  isHideUserBlock: PropTypes.bool,
+  className: PropTypes.string,
+  children: PropTypes.element,
 };
 
 const mapStateToProps = (state) => Object.assign({}, {
   user: state.user,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onSignIn: () => {
-    dispatch(ActionCreator.requireAuthorization(true));
-  }
-});
-
 export {Header};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

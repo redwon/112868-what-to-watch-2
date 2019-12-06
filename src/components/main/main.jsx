@@ -6,6 +6,7 @@ import {MovieType} from '../../types';
 import {getGenreMovies} from '../../selectors';
 import {ActionCreator} from '../../reducer/genre/genre';
 import {ActionCreator as ItemsActionCreator} from '../../reducer/items-to-show/items-to-show';
+import history from '../../history';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -32,7 +33,6 @@ const Main = (props) => {
     itemsToShow,
     isPlayerPlaying,
     onPlayerChangeState,
-    history
   } = props;
 
   const onClickTitleHandler = (movie) => {
@@ -60,8 +60,7 @@ const Main = (props) => {
   return (
     <Fragment>
       <section className="movie-card">
-        <h1 className="visually-hidden">WTW</h1>
-        <Header />
+        <Header className="movie-card__head" />
         <PromoMovie movie={promoMovie} onPlayMovie={onPlayMovieHandler} />
       </section>
 
@@ -88,7 +87,6 @@ Main.propTypes = {
   itemsToShow: PropTypes.number.isRequired,
   isPlayerPlaying: PropTypes.bool,
   onPlayerChangeState: PropTypes.func,
-  history: PropTypes.object,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {

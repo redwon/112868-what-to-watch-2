@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Switch, Route} from 'react-router-dom';
 
@@ -15,11 +14,7 @@ const MainWrapped = withPlayerState(Main);
 const MovieWrapped = withPlayerState(Movie);
 const AddReviewWrapped = withFormReview(AddReview);
 
-const App = ({isAuthorizationRequired}) => {
-  if (isAuthorizationRequired) {
-    return <SignIn />;
-  }
-
+const App = () => {
   return (
     <Switch>
       <Route
@@ -27,6 +22,13 @@ const App = ({isAuthorizationRequired}) => {
         exact
         render={(props) => (
           <MainWrapped {...props} />
+        )}
+      />
+      <Route
+        path="/login"
+        exact
+        render={(props) => (
+          <SignIn {...props} />
         )}
       />
       <Route
@@ -45,10 +47,6 @@ const App = ({isAuthorizationRequired}) => {
       />
     </Switch>
   );
-};
-
-App.propTypes = {
-  isAuthorizationRequired: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => Object.assign({}, {
