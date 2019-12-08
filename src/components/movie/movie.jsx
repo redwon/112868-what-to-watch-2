@@ -31,12 +31,7 @@ const Movie = (props) => {
     isPlayerPlaying,
     onPlayerChangeState,
     isAuthorizationRequired,
-    history,
   } = props;
-
-  const onClickTitleHandler = (cardMovie) => {
-    history.replace(`/movie/${cardMovie.id}`);
-  };
 
   const onPlayMovieHandler = () => {
     onPlayerChangeState(true);
@@ -124,7 +119,7 @@ const Movie = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MoviesList movies={relatedMovies} onClickTitle={onClickTitleHandler} />
+          <MoviesList movies={relatedMovies} />
         </section>
 
         <Footer />
@@ -140,7 +135,6 @@ Movie.propTypes = {
   onPlayerChangeState: PropTypes.func,
   isAuthorizationRequired: PropTypes.bool,
   match: PropTypes.object,
-  history: PropTypes.object,
 };
 
 const mapStateToProps = (state, props) => Object.assign({}, props, {

@@ -9,13 +9,12 @@ import withPlayerState from '../../hocs/with-player-state/with-player-state';
 
 const MovieCardWrapped = withPlayerState(MovieCard);
 
-const MoviesList = ({movies, onClickTitle}) => {
+const MoviesList = ({movies}) => {
   const getListItems = () => {
     return movies.map((it, i) => (
       <MovieCardWrapped
         key={i}
         movie={it}
-        onClick={onClickTitle}
       />
     ));
   };
@@ -29,7 +28,6 @@ const MoviesList = ({movies, onClickTitle}) => {
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(MovieType),
-  onClickTitle: PropTypes.func,
   activeIndex: PropTypes.number,
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import history from '../../history';
 import {MovieType} from '../../types';
 
 import PreviewPlayer from '../preview-player/preview-player';
@@ -10,17 +10,15 @@ let timer = null;
 const MovieCard = (props) => {
   const {
     movie,
-    onClick,
-    onHover,
     isPlayerPlaying,
     onPlayerChangeState,
   } = props;
 
-  const mouseEnterHandler = () => {
-    if (onHover) {
-      onHover(movie);
-    }
+  const onClickHandler = () => {
+    history.push(`/movie/${movie.id}`);
+  };
 
+  const mouseEnterHandler = () => {
     timer = setTimeout(() => {
       onPlayerChangeState(true);
     }, 1000);
@@ -36,7 +34,7 @@ const MovieCard = (props) => {
       className="small-movie-card catalog__movies-card"
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
-      onClick={() => onClick(movie)}
+      onClick={() => onClickHandler(movie)}
     >
       <div className="small-movie-card__image">
         <PreviewPlayer
@@ -52,7 +50,7 @@ const MovieCard = (props) => {
           href="#"
           onClick={(evt) => {
             evt.preventDefault();
-            onClick(movie);
+            onClickHandler(movie);
           }}
         >
           {movie.name}
@@ -64,8 +62,6 @@ const MovieCard = (props) => {
 
 MovieCard.propTypes = {
   movie: MovieType,
-  onClick: PropTypes.func,
-  onHover: PropTypes.func,
   isPlayerPlaying: PropTypes.bool,
   onPlayerChangeState: PropTypes.func,
 };

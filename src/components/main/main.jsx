@@ -6,7 +6,6 @@ import {MovieType} from '../../types';
 import {getGenreMovies} from '../../selectors';
 import {ActionCreator} from '../../reducer/genre/genre';
 import {ActionCreator as ItemsActionCreator} from '../../reducer/items-to-show/items-to-show';
-import history from '../../history';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -34,10 +33,6 @@ const Main = (props) => {
     isPlayerPlaying,
     onPlayerChangeState,
   } = props;
-
-  const onClickTitleHandler = (movie) => {
-    history.push(`/movie/${movie.id}`);
-  };
 
   const onPlayMovieHandler = () => {
     onPlayerChangeState(true);
@@ -68,7 +63,7 @@ const Main = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresListWrapped movies={movies} onChange={onGenreChange} />
-          <MoviesListWrapped movies={filteredMovies} onClickTitle={onClickTitleHandler} />
+          <MoviesListWrapped movies={filteredMovies} />
           {(movies.length > itemsToShow) && <ShowMore itemsToShow={itemsToShow} onClick={onChangeItemsToShow} />}
         </section>
 
