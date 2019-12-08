@@ -5,17 +5,11 @@ import PropTypes from 'prop-types';
 import {MovieType} from '../../types';
 import {Operations} from '../../reducer/reviews/reviews';
 import {getMovieById} from '../../selectors';
-import history from '../../history';
 
 import Header from '../header/header';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 
 const AddReview = (props) => {
-  if (props.isAuthorizationRequired) {
-    history.push(`/login`);
-    return null;
-  }
-
   if (!props.movie) {
     return null;
   }
@@ -146,13 +140,11 @@ AddReview.propTypes = {
   onShowError: PropTypes.func,
   onUserInput: PropTypes.func,
   onAddReview: PropTypes.func,
-  isAuthorizationRequired: PropTypes.bool,
   match: PropTypes.object,
 };
 
 const mapStateToProps = (state, props) => Object.assign({}, props, {
   movie: getMovieById(state, props.match.params.id),
-  isAuthorizationRequired: state.isAuthorizationRequired
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -6,8 +6,6 @@ import thunk from 'redux-thunk';
 import {compose} from 'recompose';
 
 import {reducer} from './reducer';
-import {Operations} from './reducer/movies/movies';
-import {Operations as PromoMovieOperations} from './reducer/promo-movie/promo-movie';
 import {configureAPI} from './api';
 import {Router} from 'react-router-dom';
 import history from './history';
@@ -23,9 +21,6 @@ const init = () => {
           window && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
       )
   );
-
-  store.dispatch(Operations.loadMovies());
-  store.dispatch(PromoMovieOperations.loadPromoMovie());
 
   ReactDOM.render(
       <Provider store={store}>

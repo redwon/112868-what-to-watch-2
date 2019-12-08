@@ -23,6 +23,7 @@ it(`renders correctly`, () => {
         movies={movies}
         filteredMovies={movies}
         onGenreChange={jest.fn()}
+        onMainPageLoad={jest.fn()}
       />
     </MemoryRouter>, {createNodeMock})
     .toJSON();
