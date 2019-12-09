@@ -4,6 +4,20 @@ import {MovieType} from '../../types';
 
 const MovieTabs = ({movie, activeIndex, onChangeActiveIndex}) => {
   const tabs = [`Overview`, `Details`, `Reviews`];
+  const getRatingText = (rating) => {
+    switch (true) {
+      case (rating === 10):
+        return `Awesome`;
+      case (rating < 10 && rating >= 8):
+        return `Very Good`;
+      case (rating < 8 && rating >= 5):
+        return `Good`;
+      case (rating < 5 && rating >= 3):
+        return `Normal`;
+    }
+
+    return `Bad`;
+  };
   const getTabContent = (index) => {
     switch (index) {
       case 0:
@@ -12,7 +26,7 @@ const MovieTabs = ({movie, activeIndex, onChangeActiveIndex}) => {
             <div className="movie-rating">
               <div className="movie-rating__score">{movie.rating}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">Very good</span>
+                <span className="movie-rating__level">{getRatingText(movie.rating)}</span>
                 <span className="movie-rating__count">{movie.scoresCount} ratings</span>
               </p>
             </div>
