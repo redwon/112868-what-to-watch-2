@@ -78,7 +78,7 @@ class MovieTabs extends PureComponent {
                   </footer>
                 </blockquote>
 
-                <div className="review__rating">8,9</div>
+                <div className="review__rating">{it.rating}</div>
               </div>
             ))}
           </div>

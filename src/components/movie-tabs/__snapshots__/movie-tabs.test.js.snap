@@ -299,7 +299,7 @@ Array [
       <div
         className="review__rating"
       >
-        8,9
+        3.7
       </div>
     </div>
     <div
@@ -332,7 +332,7 @@ Array [
       <div
         className="review__rating"
       >
-        8,9
+        4.2
       </div>
     </div>
   </div>,

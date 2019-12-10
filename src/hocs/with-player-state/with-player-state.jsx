@@ -12,8 +12,8 @@ const withPlayerState = (Component) => {
       this._playerChangeStateHandler = this._playerChangeStateHandler.bind(this);
     }
 
-    _playerChangeStateHandler(state) {
-      this.setState({isPlayerPlaying: state});
+    _playerChangeStateHandler(status) {
+      this.setState({isPlayerPlaying: status});
     }
 
     render() {

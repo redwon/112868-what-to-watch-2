@@ -7,7 +7,9 @@ import {UserType} from '../../types';
 
 const BASE_URL = `https://htmlacademy-react-2.appspot.com`;
 
-const Header = (props, {user, isHideUserBlock}) => {
+const Header = (props) => {
+  const {user, isHideUserBlock} = props;
+
   const getUserBlock = () => {
     if (user) {
       return (

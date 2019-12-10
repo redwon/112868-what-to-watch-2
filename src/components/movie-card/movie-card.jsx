@@ -13,6 +13,10 @@ class MovieCard extends PureComponent {
     super(props);
 
     this.timer = null;
+
+    this._clickHandler = this._clickHandler.bind(this);
+    this._mouseEnterHandler = this._mouseEnterHandler.bind(this);
+    this._mouseLeaveHandler = this._mouseLeaveHandler.bind(this);
   }
 
   _clickHandler(evt) {
