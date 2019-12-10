@@ -1,5 +1,3 @@
-import {convertObjectKeys} from '../../utils';
-
 export const initialState = [];
 
 export const ActionType = {
@@ -17,8 +15,7 @@ export const Operations = {
   loadFavorites: () => (dispatch, _, api) => {
     return api.get(`/favorite`)
       .then((response) => {
-        const favorites = response.data.map(convertObjectKeys);
-        dispatch(ActionCreator.loadFavorites(favorites));
+        dispatch(ActionCreator.loadFavorites(response.data));
       });
   }
 };

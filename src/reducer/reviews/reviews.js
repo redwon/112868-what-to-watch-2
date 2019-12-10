@@ -1,5 +1,3 @@
-import {convertObjectKeys} from '../../utils';
-
 export const initialState = [];
 
 export const ActionType = {
@@ -17,8 +15,7 @@ export const Operations = {
   loadReviews: (movieId) => (dispatch, _, api) => {
     return api.get(`/comments/${movieId}`)
       .then((response) => {
-        const reviews = response.data.map(convertObjectKeys);
-        dispatch(ActionCreator.loadReviews(reviews));
+        dispatch(ActionCreator.loadReviews(response.data));
       });
   }
 };

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from './history';
+import {convertObjectKeys} from './utils';
 
 export const configureAPI = (onForbidden) => {
   const api = axios.create({
@@ -8,7 +9,10 @@ export const configureAPI = (onForbidden) => {
     withCredentials: true,
   });
 
-  const onSuccess = (response) => response;
+  const onSuccess = (response) => {
+    response.data = convertObjectKeys(response.data);
+    return response;
+  };
 
   const onFail = (err) => {
     switch (err.response.status) {
