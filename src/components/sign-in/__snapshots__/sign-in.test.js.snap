@@ -16,13 +16,12 @@ exports[`renders correctly 1`] = `
         className="sign-in__fields"
       >
         <div
-          className="sign-in__field"
+          className="sign-in__field "
         >
           <input
             className="sign-in__input"
             id="user-email"
-            name="user-email"
-            onChange={[Function]}
+            name="email"
             placeholder="Email address"
             type="email"
           />
@@ -34,13 +33,12 @@ exports[`renders correctly 1`] = `
           </label>
         </div>
         <div
-          className="sign-in__field"
+          className="sign-in__field "
         >
           <input
             className="sign-in__input"
             id="user-password"
-            name="user-password"
-            onChange={[Function]}
+            name="password"
             placeholder="Password"
             type="password"
           />

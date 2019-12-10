@@ -2,26 +2,41 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {Operations} from '../../reducer/user/user';
+import {ActionCreator} from '../../reducer/user/user';
+import history from '../../history';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
-const SignIn = ({onLogin}) => {
-  let email = ``;
-  let password = ``;
-
-  const emailHandler = (evt) => {
-    email = evt.target.value;
-  };
-
-  const passwordHandler = (evt) => {
-    password = evt.target.value;
-  };
+const SignIn = (props) => {
+  const {
+    onLogin,
+    isLoading,
+    error,
+    onPost,
+    email,
+    isEmailValid,
+    passwordErrorMessage,
+    password,
+    isPasswordValid,
+    emailErrorMessage,
+    isFormValid,
+    isShowError,
+    onShowError,
+    onUserInput,
+  } = props;
 
   const submitHandler = (evt) => {
     evt.preventDefault();
-    onLogin(email, password);
+    onShowError(true);
+
+    if (isFormValid && !isLoading) {
+      onShowError(false);
+      onPost(`/login`, {email, password}, (data) => {
+        onLogin(data);
+        history.push(`/`);
+      });
+    }
   };
 
   return (
@@ -31,29 +46,45 @@ const SignIn = ({onLogin}) => {
       </Header>
       <div className="sign-in user-page__content">
         <form className="sign-in__form" onSubmit={submitHandler}>
+          {isShowError && (
+            <div className="sign-in__message">
+              {!isEmailValid && (
+                <p>{emailErrorMessage}</p>
+              )}
+              {!isPasswordValid && (
+                <p>{passwordErrorMessage}</p>
+              )}
+              {error && (
+                <p>{error}</p>
+              )}
+            </div>
+          )}
+
           <div className="sign-in__fields">
-            <div className="sign-in__field">
+            <div className={`sign-in__field ${isShowError && !isEmailValid ? `sign-in__field--error` : ``}`}>
               <input
                 className="sign-in__input"
                 type="email"
                 placeholder="Email address"
-                name="user-email"
+                name="email"
                 id="user-email"
-                onChange={emailHandler}
+                value={email}
+                onChange={onUserInput}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">
                 Email address
               </label>
             </div>
 
-            <div className="sign-in__field">
+            <div className={`sign-in__field ${isShowError && !isPasswordValid ? `sign-in__field--error` : ``}`}>
               <input
                 className="sign-in__input"
                 type="password"
                 placeholder="Password"
-                name="user-password"
+                name="password"
                 id="user-password"
-                onChange={passwordHandler}
+                value={password}
+                onChange={onUserInput}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">
                 Password
@@ -74,12 +105,25 @@ const SignIn = ({onLogin}) => {
 };
 
 SignIn.propTypes = {
-  onLogin: PropTypes.func
+  onLogin: PropTypes.func,
+  isLoading: PropTypes.bool,
+  error: PropTypes.object,
+  onPost: PropTypes.func,
+  email: PropTypes.string,
+  isEmailValid: PropTypes.bool,
+  passwordErrorMessage: PropTypes.string,
+  password: PropTypes.string,
+  isPasswordValid: PropTypes.bool,
+  emailErrorMessage: PropTypes.string,
+  isFormValid: PropTypes.bool,
+  isShowError: PropTypes.bool,
+  onShowError: PropTypes.func,
+  onUserInput: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogin: (email, password) => {
-    dispatch(Operations.login(email, password));
+  onLogin: (user) => {
+    dispatch(ActionCreator.login(user));
   }
 });
 
