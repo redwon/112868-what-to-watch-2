@@ -10,6 +10,7 @@ import {configureAPI} from './api';
 import {Router} from 'react-router-dom';
 import history from './history';
 import {ActionCreator} from './reducer/authorization/authorization';
+import {Operations} from './reducer/user/user';
 
 import App from './components/app/app';
 
@@ -22,6 +23,8 @@ const init = () => {
           window && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
       )
   );
+
+  store.dispatch(Operations.checkLogin());
 
   ReactDOM.render(
       <Provider store={store}>

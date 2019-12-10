@@ -17,13 +17,13 @@ export const configureAPI = (onForbidden) => {
   const onFail = (err) => {
     switch (err.response.status) {
       case 401:
-        history.push(`/login`);
-        break;
-
-      case 403:
         if (typeof onForbidden === `function`) {
           onForbidden();
         }
+        break;
+
+      case 403:
+        history.push(`/login`);
         break;
     }
 
