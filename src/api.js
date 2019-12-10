@@ -1,8 +1,7 @@
 import axios from 'axios';
 import history from './history';
-import {ActionCreator} from './reducer/authorization/authorization';
 
-export const configureAPI = (dispatch) => {
+export const configureAPI = (onForbidden) => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-2.appspot.com/wtw`,
     timeout: 5000,
@@ -18,7 +17,9 @@ export const configureAPI = (dispatch) => {
         break;
 
       case 403:
-        dispatch(ActionCreator.requireAuthorization(true));
+        if (typeof onForbidden === `function`) {
+          onForbidden();
+        }
         break;
     }
 

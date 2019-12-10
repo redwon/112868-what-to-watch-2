@@ -9,11 +9,12 @@ import {reducer} from './reducer';
 import {configureAPI} from './api';
 import {Router} from 'react-router-dom';
 import history from './history';
+import {ActionCreator} from './reducer/authorization/authorization';
 
 import App from './components/app/app';
 
 const init = () => {
-  const api = configureAPI((...args) => store.dispatch(...args));
+  const api = configureAPI(() => store.dispatch(ActionCreator.requireAuthorization(true)));
   const store = createStore(
       reducer,
       compose(
