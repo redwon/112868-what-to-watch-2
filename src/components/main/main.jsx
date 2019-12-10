@@ -4,8 +4,7 @@ import {connect} from 'react-redux';
 
 import {MovieType} from '../../types';
 import {getGenreMovies} from '../../selectors';
-import {ActionCreator} from '../../reducer/genre/genre';
-import {ActionCreator as ItemsActionCreator} from '../../reducer/items-to-show/items-to-show';
+import {ActionCreator} from '../../reducer/items-to-show/items-to-show';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -20,14 +19,12 @@ import withVideo from '../../hocs/with-video/with-video';
 
 const MoviePlayerWrapped = withVideo(MoviePlayer);
 const MoviesListWrapped = withActiveItem(MoviesList);
-const GenresListWrapped = withActiveItem(GenresList);
 
 const Main = (props) => {
   const {
     movies,
     filteredMovies,
     promoMovie,
-    onGenreChange,
     onChangeItemsToShow,
     itemsToShow,
     isPlayerPlaying,
@@ -62,7 +59,7 @@ const Main = (props) => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresListWrapped movies={movies} onChange={onGenreChange} />
+          <GenresList movies={movies} />
           <MoviesListWrapped movies={filteredMovies} />
           {(movies.length > itemsToShow) && <ShowMore itemsToShow={itemsToShow} onClick={onChangeItemsToShow} />}
         </section>
@@ -77,7 +74,6 @@ Main.propTypes = {
   movies: PropTypes.arrayOf(MovieType),
   filteredMovies: PropTypes.arrayOf(MovieType),
   promoMovie: MovieType,
-  onGenreChange: PropTypes.func.isRequired,
   onChangeItemsToShow: PropTypes.func.isRequired,
   itemsToShow: PropTypes.number.isRequired,
   isPlayerPlaying: PropTypes.bool,
@@ -92,11 +88,8 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenreChange: (genre) => {
-    dispatch(ActionCreator.changeGenre(genre));
-  },
   onChangeItemsToShow: (count) => {
-    dispatch(ItemsActionCreator.itemsToShow(count));
+    dispatch(ActionCreator.itemsToShow(count));
   }
 });
 

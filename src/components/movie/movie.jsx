@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import {MovieType} from '../../types';
 import {getRelatedMovies, getMovieById} from '../../selectors';
-import {ActionCreator} from '../../reducer/genre/genre';
 import {Operations} from '../../reducer/movies/movies';
 
 import Header from '../header/header';
@@ -156,9 +155,6 @@ const mapStateToProps = (state, props) => Object.assign({}, props, {
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenreChange: (genre) => {
-    dispatch(ActionCreator.changeGenre(genre));
-  },
   onLoadMovies: () => {
     dispatch(Operations.loadMovies());
   }
