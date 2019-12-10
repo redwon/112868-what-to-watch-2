@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {MovieType} from '../../types';
-import {Operations} from '../../reducer/reviews/reviews';
 import {getMovieById} from '../../selectors';
+import history from '../../history';
 
 import Header from '../header/header';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
@@ -16,6 +16,9 @@ const AddReview = (props) => {
 
   const {
     movie,
+    isLoading,
+    error,
+    onPost,
     comment,
     isCommentValid,
     commentErrorMessage,
@@ -26,7 +29,6 @@ const AddReview = (props) => {
     isShowError,
     onShowError,
     onUserInput,
-    onAddReview
   } = props;
 
   const ratings = [1, 2, 3, 4, 5];
@@ -35,11 +37,12 @@ const AddReview = (props) => {
     evt.preventDefault();
     onShowError(true);
 
-    if (!isFormValid) {
-      return;
+    if (isFormValid && !isLoading) {
+      onShowError(false);
+      onPost(`/comments/${movie.id}`, {rating, comment}, () => {
+        history.push(`/movie/${movie.id}`);
+      });
     }
-
-    onAddReview(rating, comment, movie.id);
   };
 
   return (
@@ -113,14 +116,19 @@ const AddReview = (props) => {
             </div>
           </div>
 
-          {isShowError && !isRatingValid && (
-            <strong>{ratingErrorMessage}<br /></strong>
+          {isShowError && (
+            <Fragment>
+              {!isRatingValid && (
+                <p><strong>{ratingErrorMessage}</strong></p>
+              )}
+              {!isCommentValid && (
+                <p><strong>{commentErrorMessage}</strong></p>
+              )}
+              {error && (
+                <p><strong>{error.message}</strong></p>
+              )}
+            </Fragment>
           )}
-
-          {isShowError && !isCommentValid && (
-            <strong>{commentErrorMessage}</strong>
-          )}
-
         </form>
       </div>
     </section>
@@ -129,6 +137,9 @@ const AddReview = (props) => {
 
 AddReview.propTypes = {
   movie: MovieType,
+  isLoading: PropTypes.bool,
+  error: PropTypes.object,
+  onPost: PropTypes.func,
   comment: PropTypes.string,
   isCommentValid: PropTypes.bool,
   commentErrorMessage: PropTypes.string,
@@ -139,7 +150,6 @@ AddReview.propTypes = {
   isShowError: PropTypes.bool,
   onShowError: PropTypes.func,
   onUserInput: PropTypes.func,
-  onAddReview: PropTypes.func,
   match: PropTypes.object,
 };
 
@@ -147,12 +157,6 @@ const mapStateToProps = (state, props) => Object.assign({}, props, {
   movie: getMovieById(state, props.match.params.id),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onAddReview: (rating, comment, movieId) => {
-    dispatch(Operations.addReview(rating, comment, movieId));
-  }
-});
-
 export {AddReview};
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
+export default connect(mapStateToProps)(AddReview);

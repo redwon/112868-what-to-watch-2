@@ -23,14 +23,18 @@ it(`AddReview is correctly handled submit form`, () => {
     isShowError={true}
     onShowError={showErrorHandler}
     onUserInput={userInputHandler}
-    onAddReview={addReviewHandler}
-    isAuthorizationRequired={false}
+    onPost={addReviewHandler}
+    isLoading={false}
   />);
 
   const form = wrapper.find(`.add-review__form`);
   form.simulate(`submit`, {preventDefault: jest.fn()});
   expect(showErrorHandler).toHaveBeenCalledWith(true);
-  expect(addReviewHandler).toHaveBeenCalledWith(1, `comment`, movies[0].id);
+  expect(addReviewHandler).toHaveBeenCalledWith(
+      `/comments/${movies[0].id}`,
+      {comment: `comment`, rating: 1},
+      expect.anything()
+  );
 
   const ratingInputs = wrapper.find(`.rating__input`);
   ratingInputs.at(2).simulate(`change`);

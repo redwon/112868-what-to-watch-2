@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react';
 
+import withApi from '../../hocs/with-api/with-api';
+
 const MIN_COMMENT_LENGTH = 50;
 const MAX_COMMENT_LENGTH = 400;
 const MAX_RATING = 5;
@@ -76,7 +78,7 @@ const withFormReview = (Component) => {
 
   WithFormReview.propTypes = {};
 
-  return WithFormReview;
+  return withApi(WithFormReview);
 };
 
 export default withFormReview;

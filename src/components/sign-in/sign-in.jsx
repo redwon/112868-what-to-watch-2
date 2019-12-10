@@ -55,7 +55,7 @@ const SignIn = (props) => {
                 <p>{passwordErrorMessage}</p>
               )}
               {error && (
-                <p>{error}</p>
+                <p>{error.message}</p>
               )}
             </div>
           )}

@@ -19,8 +19,8 @@ it(`renders correctly`, () => {
       isShowError={true}
       onShowError={jest.fn()}
       onUserInput={jest.fn()}
-      onAddReview={jest.fn()}
-      isAuthorizationRequired={false}
+      onPost={jest.fn()}
+      isLoading={false}
     />)
     .toJSON();
 
