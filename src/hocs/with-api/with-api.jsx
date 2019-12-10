@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+
 import {configureAPI} from '../../api';
 import history from '../../history';
 
@@ -17,15 +18,6 @@ const withApi = (Component) => {
       this._onPostHandler = this._onPostHandler.bind(this);
     }
 
-    render() {
-      return <Component
-        {...this.props}
-        isLoading={this.state.data}
-        error={this.state.error}
-        onPost={this._onPostHandler}
-      />;
-    }
-
     _onPostHandler(url, params, onResponse) {
       this.setState({isLoading: true});
 
@@ -41,6 +33,15 @@ const withApi = (Component) => {
           error,
           isLoading: false
         }));
+    }
+
+    render() {
+      return <Component
+        {...this.props}
+        isLoading={this.state.data}
+        error={this.state.error}
+        onPost={this._onPostHandler}
+      />;
     }
   }
 

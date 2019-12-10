@@ -10,18 +10,14 @@ import withPlayerState from '../../hocs/with-player-state/with-player-state';
 const MovieCardWrapped = withPlayerState(MovieCard);
 
 const MoviesList = ({movies}) => {
-  const getListItems = () => {
-    return movies.map((it, i) => (
-      <MovieCardWrapped
-        key={i}
-        movie={it}
-      />
-    ));
-  };
-
   return (
     <div className="catalog__movies-list">
-      {getListItems()}
+      {movies.map((it, i) => (
+        <MovieCardWrapped
+          key={i}
+          movie={it}
+        />
+      ))}
     </div>
   );
 };

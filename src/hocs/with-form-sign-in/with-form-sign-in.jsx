@@ -25,22 +25,6 @@ const withFormSignIn = (Component) => {
       this._showErrorHandler = this._showErrorHandler.bind(this);
     }
 
-    render() {
-      return <Component
-        {...this.props}
-        email={this.state.email}
-        isEmailValid={this.state.isEmailValid}
-        passwordErrorMessage={passwordErrorMessage}
-        password={this.state.password}
-        isPasswordValid={this.state.isPasswordValid}
-        emailErrorMessage={emailErrorMessage}
-        isFormValid={this.state.isFormValid}
-        isShowError={this.state.isShowError}
-        onShowError={this._showErrorHandler}
-        onUserInput={this._userInputHandler}
-      />;
-    }
-
     _userInputHandler(evt) {
       const name = evt.target.name;
       const value = evt.target.value;
@@ -53,7 +37,7 @@ const withFormSignIn = (Component) => {
 
       switch (name) {
         case `email`:
-          isEmailValid = this._validateEmail(value);
+          isEmailValid = WithFormSignIn.validateEmail(value);
           break;
         case `password`:
           isPasswordValid = value.length >= MIN_PASSWORD_LENGTH;
@@ -71,7 +55,23 @@ const withFormSignIn = (Component) => {
       this.setState({isShowError: state});
     }
 
-    _validateEmail(email) {
+    render() {
+      return <Component
+        {...this.props}
+        email={this.state.email}
+        isEmailValid={this.state.isEmailValid}
+        passwordErrorMessage={passwordErrorMessage}
+        password={this.state.password}
+        isPasswordValid={this.state.isPasswordValid}
+        emailErrorMessage={emailErrorMessage}
+        isFormValid={this.state.isFormValid}
+        isShowError={this.state.isShowError}
+        onShowError={this._showErrorHandler}
+        onUserInput={this._userInputHandler}
+      />;
+    }
+
+    static validateEmail(email) {
       const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       return regex.test(email);
     }

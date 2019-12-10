@@ -29,22 +29,6 @@ const withFormReview = (Component) => {
       this._showErrorHandler = this._showErrorHandler.bind(this);
     }
 
-    render() {
-      return <Component
-        {...this.props}
-        comment={this.state.comment}
-        isCommentValid={this.state.isCommentValid}
-        commentErrorMessage={commentErrorMessage}
-        rating={parseInt(this.state.rating, 10)}
-        isRatingValid={this.state.isRatingValid}
-        ratingErrorMessage={ratingErrorMessage}
-        isFormValid={this.state.isFormValid}
-        isShowError={this.state.isShowError}
-        onShowError={this._showErrorHandler}
-        onUserInput={this._userInputHandler}
-      />;
-    }
-
     _userInputHandler(evt) {
       const name = evt.target.name;
       const value = evt.target.value;
@@ -73,6 +57,22 @@ const withFormReview = (Component) => {
 
     _showErrorHandler(state) {
       this.setState({isShowError: state});
+    }
+
+    render() {
+      return <Component
+        {...this.props}
+        comment={this.state.comment}
+        isCommentValid={this.state.isCommentValid}
+        commentErrorMessage={commentErrorMessage}
+        rating={parseInt(this.state.rating, 10)}
+        isRatingValid={this.state.isRatingValid}
+        ratingErrorMessage={ratingErrorMessage}
+        isFormValid={this.state.isFormValid}
+        isShowError={this.state.isShowError}
+        onShowError={this._showErrorHandler}
+        onUserInput={this._userInputHandler}
+      />;
     }
   }
 

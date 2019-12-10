@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const ITEMS_PER_PAGE = 20;
+
 const ShowMore = ({itemsToShow, onClick}) => {
-  const ITEMS_PER_PAGE = 20;
   const onClickHandler = () => {
     onClick(itemsToShow + ITEMS_PER_PAGE);
   };

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import {MovieType} from '../../types';
 import {ActionCreator} from '../../reducer/promo-movie/promo-movie';
+
 import withApi from '../../hocs/with-api/with-api';
 
 import AddMyList from '../add-my-list/add-my-list';
@@ -14,10 +15,6 @@ const PromoMovie = ({movie, onPlayMovie, onLoadPromoMovie}) => {
   if (!movie) {
     return null;
   }
-
-  const onAddMyListHandler = (data) => {
-    onLoadPromoMovie(data);
-  };
 
   return (
     <Fragment>
@@ -56,7 +53,7 @@ const PromoMovie = ({movie, onPlayMovie, onLoadPromoMovie}) => {
 
               <AddMyListWrapped
                 movie={movie}
-                onClick={onAddMyListHandler}
+                onClick={onLoadPromoMovie}
               />
             </div>
           </div>

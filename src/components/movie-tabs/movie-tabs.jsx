@@ -1,30 +1,18 @@
-import React, {Fragment} from 'react';
+import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
+
 import {MovieType, ReviewType} from '../../types';
 
-const MovieTabs = ({movie, reviews, activeIndex, onChangeActiveIndex}) => {
-  const tabs = [`Overview`, `Details`, `Reviews`];
-  const getRatingText = (rating) => {
-    switch (true) {
-      case (rating === 10):
-        return `Awesome`;
-      case (rating < 10 && rating >= 8):
-        return `Very Good`;
-      case (rating < 8 && rating >= 5):
-        return `Good`;
-      case (rating < 5 && rating >= 3):
-        return `Normal`;
-    }
+class MovieTabs extends PureComponent {
+  constructor(props) {
+    super(props);
 
-    return `Bad`;
-  };
-  const sortByDate = (a, b) => {
-    return new Date(b.date) - new Date(a.date);
-  };
-  const getFormatDate = (date) => {
-    return new Date(date).toLocaleDateString(`en-US`, {year: `numeric`, month: `long`, day: `numeric`});
-  };
-  const getTabContent = (index) => {
+    this.tabs = [`Overview`, `Details`, `Reviews`];
+  }
+
+  _getTabContent(index) {
+    const {movie, reviews} = this.props;
+
     switch (index) {
       case 0:
         return (
@@ -32,7 +20,7 @@ const MovieTabs = ({movie, reviews, activeIndex, onChangeActiveIndex}) => {
             <div className="movie-rating">
               <div className="movie-rating__score">{movie.rating}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">{getRatingText(movie.rating)}</span>
+                <span className="movie-rating__level">{MovieTabs.getRatingText(movie.rating)}</span>
                 <span className="movie-rating__count">{movie.scoresCount} ratings</span>
               </p>
             </div>
@@ -77,7 +65,7 @@ const MovieTabs = ({movie, reviews, activeIndex, onChangeActiveIndex}) => {
       case 2:
         return (
           <div className="movie-card__reviews movie-card__row">
-            {reviews.sort(sortByDate).map((it, i) => (
+            {reviews.sort(MovieTabs.sortByDate).map((it, i) => (
               <div key={i} className="review">
                 <blockquote className="review__quote">
                   <p className="review__text">{it.comment}</p>
@@ -85,7 +73,7 @@ const MovieTabs = ({movie, reviews, activeIndex, onChangeActiveIndex}) => {
                   <footer className="review__details">
                     <cite className="review__author">{it.user.name}</cite>
                     <time className="review__date" dateTime={it.date}>
-                      {getFormatDate(it.date)}
+                      {MovieTabs.getFormatDate(it.date)}
                     </time>
                   </footer>
                 </blockquote>
@@ -98,36 +86,63 @@ const MovieTabs = ({movie, reviews, activeIndex, onChangeActiveIndex}) => {
     }
 
     return null;
-  };
+  }
 
-  return (
-    <Fragment>
-      <nav className="movie-nav movie-card__nav">
-        <ul className="movie-nav__list">
-          {tabs.map((it, i) => (
-            <li
-              key={i}
-              className={`movie-nav__item ${(i === activeIndex) ? `movie-nav__item--active` : ``}`}
-            >
-              <a
-                href="#"
-                className="movie-nav__link"
-                onClick={(evt) => {
-                  evt.preventDefault();
-                  onChangeActiveIndex(i);
-                }}
+  render() {
+    const {activeIndex, onChangeActiveIndex} = this.props;
+
+    return (
+      <Fragment>
+        <nav className="movie-nav movie-card__nav">
+          <ul className="movie-nav__list">
+            {this.tabs.map((it, i) => (
+              <li
+                key={i}
+                className={`movie-nav__item ${(i === activeIndex) ? `movie-nav__item--active` : ``}`}
               >
-                {it}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+                <a
+                  href="#"
+                  className="movie-nav__link"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    onChangeActiveIndex(i);
+                  }}
+                >
+                  {it}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      {getTabContent(activeIndex)}
-    </Fragment>
-  );
-};
+        {this._getTabContent(activeIndex)}
+      </Fragment>
+    );
+  }
+
+  static getRatingText(rating) {
+    switch (true) {
+      case (rating === 10):
+        return `Awesome`;
+      case (rating < 10 && rating >= 8):
+        return `Very Good`;
+      case (rating < 8 && rating >= 5):
+        return `Good`;
+      case (rating < 5 && rating >= 3):
+        return `Normal`;
+    }
+
+    return `Bad`;
+  }
+
+  static sortByDate(a, b) {
+    return new Date(b.date) - new Date(a.date);
+  }
+
+  static getFormatDate(date) {
+    return new Date(date).toLocaleDateString(`en-US`, {year: `numeric`, month: `long`, day: `numeric`});
+  }
+}
 
 MovieTabs.propTypes = {
   movie: MovieType,

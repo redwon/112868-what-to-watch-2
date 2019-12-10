@@ -1,15 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import {UserType} from '../../types';
 
 const BASE_URL = `https://htmlacademy-react-2.appspot.com`;
 
-const Header = (props) => {
-  const {user, isHideUserBlock} = props;
-
+const Header = (props, {user, isHideUserBlock}) => {
   const getUserBlock = () => {
     if (user) {
       return (

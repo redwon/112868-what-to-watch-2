@@ -1,21 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Router} from 'react-router-dom';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import {compose} from 'recompose';
 
-import {reducer} from './reducer';
 import {configureAPI} from './api';
-import {Router} from 'react-router-dom';
-import history from './history';
+import {reducer} from './reducer';
 import {ActionCreator} from './reducer/authorization/authorization';
 import {Operations} from './reducer/user/user';
+import history from './history';
 
 import App from './components/app/app';
 
 const init = () => {
   const api = configureAPI(() => store.dispatch(ActionCreator.requireAuthorization(true)));
+
+  /* eslint-disable no-underscore-dangle */
   const store = createStore(
       reducer,
       compose(
@@ -23,6 +25,7 @@ const init = () => {
           window && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
       )
   );
+  /* eslint-enable */
 
   store.dispatch(Operations.checkLogin());
 
