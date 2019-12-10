@@ -1,24 +1,29 @@
 import axios from 'axios';
 import history from './history';
-import {ActionCreator} from './reducer/authorization/authorization';
+import {convertObjectKeys} from './utils';
 
-export const configureAPI = (dispatch) => {
+export const configureAPI = (onForbidden) => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-2.appspot.com/wtw`,
     timeout: 5000,
     withCredentials: true,
   });
 
-  const onSuccess = (response) => response;
+  const onSuccess = (response) => {
+    response.data = convertObjectKeys(response.data);
+    return response;
+  };
 
   const onFail = (err) => {
     switch (err.response.status) {
       case 401:
-        history.push(`/login`);
+        if (typeof onForbidden === `function`) {
+          onForbidden();
+        }
         break;
 
       case 403:
-        dispatch(ActionCreator.requireAuthorization(true));
+        history.push(`/login`);
         break;
     }
 

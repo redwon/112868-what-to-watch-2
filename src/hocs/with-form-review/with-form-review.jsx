@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react';
 
+import withApi from '../../hocs/with-api/with-api';
+
 const MIN_COMMENT_LENGTH = 50;
 const MAX_COMMENT_LENGTH = 400;
 const MAX_RATING = 5;
@@ -25,22 +27,6 @@ const withFormReview = (Component) => {
 
       this._userInputHandler = this._userInputHandler.bind(this);
       this._showErrorHandler = this._showErrorHandler.bind(this);
-    }
-
-    render() {
-      return <Component
-        {...this.props}
-        comment={this.state.comment}
-        isCommentValid={this.state.isCommentValid}
-        commentErrorMessage={commentErrorMessage}
-        rating={parseInt(this.state.rating, 10)}
-        isRatingValid={this.state.isRatingValid}
-        ratingErrorMessage={ratingErrorMessage}
-        isFormValid={this.state.isFormValid}
-        isShowError={this.state.isShowError}
-        onShowError={this._showErrorHandler}
-        onUserInput={this._userInputHandler}
-      />;
     }
 
     _userInputHandler(evt) {
@@ -72,11 +58,27 @@ const withFormReview = (Component) => {
     _showErrorHandler(state) {
       this.setState({isShowError: state});
     }
+
+    render() {
+      return <Component
+        {...this.props}
+        comment={this.state.comment}
+        isCommentValid={this.state.isCommentValid}
+        commentErrorMessage={commentErrorMessage}
+        rating={parseInt(this.state.rating, 10)}
+        isRatingValid={this.state.isRatingValid}
+        ratingErrorMessage={ratingErrorMessage}
+        isFormValid={this.state.isFormValid}
+        isShowError={this.state.isShowError}
+        onShowError={this._showErrorHandler}
+        onUserInput={this._userInputHandler}
+      />;
+    }
   }
 
   WithFormReview.propTypes = {};
 
-  return WithFormReview;
+  return withApi(WithFormReview);
 };
 
 export default withFormReview;

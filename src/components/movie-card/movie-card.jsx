@@ -1,71 +1,70 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import {MovieType} from '../../types';
+import history from '../../history';
 
 import PreviewPlayer from '../preview-player/preview-player';
 
-let timer = null;
+const MOUSE_ENTER_DELAY = 1000;
 
-const MovieCard = (props) => {
-  const {
-    movie,
-    onClick,
-    onHover,
-    isPlayerPlaying,
-    onPlayerChangeState,
-  } = props;
+class MovieCard extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  const mouseEnterHandler = () => {
-    if (onHover) {
-      onHover(movie);
-    }
+    this.timer = null;
+  }
 
-    timer = setTimeout(() => {
-      onPlayerChangeState(true);
-    }, 1000);
-  };
+  _clickHandler(evt) {
+    evt.preventDefault();
+    history.push(`/movie/${this.props.movie.id}`);
+  }
 
-  const mouseLeaveHandler = () => {
-    clearTimeout(timer);
-    onPlayerChangeState(false);
-  };
+  _mouseEnterHandler() {
+    this.timer = setTimeout(() => {
+      this.props.onPlayerChangeState(true);
+    }, MOUSE_ENTER_DELAY);
+  }
 
-  return (
-    <article
-      className="small-movie-card catalog__movies-card"
-      onMouseEnter={mouseEnterHandler}
-      onMouseLeave={mouseLeaveHandler}
-      onClick={() => onClick(movie)}
-    >
-      <div className="small-movie-card__image">
-        <PreviewPlayer
-          src={movie.previewVideoLink}
-          poster={movie.posterImage}
-          isMuted={true}
-          isPlaying={isPlayerPlaying}
-        />
-      </div>
-      <h3 className="small-movie-card__title">
-        <a
-          className="small-movie-card__link"
-          href="#"
-          onClick={(evt) => {
-            evt.preventDefault();
-            onClick(movie);
-          }}
-        >
-          {movie.name}
-        </a>
-      </h3>
-    </article>
-  );
-};
+  _mouseLeaveHandler() {
+    clearTimeout(this.timer);
+    this.props.onPlayerChangeState(false);
+  }
+
+  render() {
+    const {movie, isPlayerPlaying} = this.props;
+
+    return (
+      <article
+        className="small-movie-card catalog__movies-card"
+        onMouseEnter={this._mouseEnterHandler}
+        onMouseLeave={this._mouseLeaveHandler}
+        onClick={this._clickHandler}
+      >
+        <div className="small-movie-card__image">
+          <PreviewPlayer
+            src={movie.previewVideoLink}
+            poster={movie.posterImage}
+            isMuted={true}
+            isPlaying={isPlayerPlaying}
+          />
+        </div>
+        <h3 className="small-movie-card__title">
+          <a
+            className="small-movie-card__link"
+            href="#"
+            onClick={this._clickHandler}
+          >
+            {movie.name}
+          </a>
+        </h3>
+      </article>
+    );
+  }
+}
 
 MovieCard.propTypes = {
   movie: MovieType,
-  onClick: PropTypes.func,
-  onHover: PropTypes.func,
   isPlayerPlaying: PropTypes.bool,
   onPlayerChangeState: PropTypes.func,
 };

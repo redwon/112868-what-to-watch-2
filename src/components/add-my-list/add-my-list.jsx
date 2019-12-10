@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {MovieType} from '../../types';
-import {Operations} from '../../reducer/favorites/favorites';
 
-const AddMyList = ({movie, type, onToggleFavorite}) => {
+import {MovieType} from '../../types';
+
+const AddMyList = ({movie, onClick, isLoading, onPost}) => {
   const onClickHandler = () => {
-    onToggleFavorite(movie, type);
+    if (!isLoading) {
+      const state = movie.isFavorite ? 0 : 1;
+
+      onPost(`/favorite/${movie.id}/${state}`, {}, (data) => {
+        if (typeof onClick === `function`) {
+          onClick(data);
+        }
+      });
+    }
   };
 
   return (
@@ -28,16 +35,10 @@ const AddMyList = ({movie, type, onToggleFavorite}) => {
 
 AddMyList.propTypes = {
   movie: MovieType,
-  type: PropTypes.string,
-  onToggleFavorite: PropTypes.func,
+  onClick: PropTypes.func,
+  isLoading: PropTypes.bool,
+  error: PropTypes.object,
+  onPost: PropTypes.func,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onToggleFavorite: (movie, type) => {
-    dispatch(Operations.toggleFavorite(movie, type));
-  }
-});
-
-export {AddMyList};
-
-export default connect(null, mapDispatchToProps)(AddMyList);
+export default AddMyList;

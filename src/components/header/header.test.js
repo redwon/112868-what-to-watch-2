@@ -8,7 +8,7 @@ const mockUser = {
   id: 1,
   email: `email`,
   name: `name`,
-  avatarUrl: `avatarUrl`,
+  avatarUrl: `/avatarUrl`,
 };
 
 it(`renders correctly`, () => {

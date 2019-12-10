@@ -12,16 +12,16 @@ const withActiveItem = (Component) => {
       this._changeIndexHandler = this._changeIndexHandler.bind(this);
     }
 
+    _changeIndexHandler(index) {
+      this.setState({activeIndex: index});
+    }
+
     render() {
       return <Component
         {...this.props}
         activeIndex={this.state.activeIndex}
         onChangeActiveIndex={this._changeIndexHandler}
       />;
-    }
-
-    _changeIndexHandler(index) {
-      this.setState({activeIndex: index});
     }
   }
 

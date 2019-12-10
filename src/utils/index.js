@@ -11,21 +11,21 @@ export const isObject = (obj) => {
   return obj === Object(obj) && !Array.isArray(obj) && typeof obj !== `function`;
 };
 
-export const convertObjectKeys = (obj) => {
-  if (isObject(obj)) {
+export const convertObjectKeys = (data) => {
+  if (isObject(data)) {
     const newObj = {};
 
-    Object.keys(obj)
+    Object.keys(data)
       .forEach((k) => {
-        newObj[toCamelCase(k)] = convertObjectKeys(obj[k]);
+        newObj[toCamelCase(k)] = convertObjectKeys(data[k]);
       });
 
     return newObj;
-  } else if (Array.isArray(obj)) {
-    return obj.map((i) => {
+  } else if (Array.isArray(data)) {
+    return data.map((i) => {
       return convertObjectKeys(i);
     });
   }
 
-  return obj;
+  return data;
 };

@@ -35,20 +35,20 @@ describe(`Reducer works correctly`, () => {
 });
 
 describe(`Operations works correctly`, () => {
-  it(`login should make a correct api call to /login`, () => {
+  it(`check login should make a correct api call to /login`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const login = Operations.login();
+    const checkLogin = Operations.checkLogin();
 
     apiMock
-      .onPost(`/login`)
-      .reply(200, {fake: true});
+      .onGet(`/login`)
+      .reply(200, [{fake: true}]);
 
-    return login(dispatch, {}, api)
+    return checkLogin(dispatch, {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOGIN,
-          payload: {fake: true}
+          payload: [{fake: true}]
         });
       });
   });

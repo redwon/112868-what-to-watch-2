@@ -3,14 +3,13 @@ import renderer from 'react-test-renderer';
 
 import movies from '../../mocks/movies';
 
-import {GenresList} from './genres-list';
+import {PromoMovie} from './promo-movie';
 
 it(`renders correctly`, () => {
   const tree = renderer
-    .create(<GenresList
-      movies={movies}
-      genre="All Genres"
-      onGenreChange={jest.fn()}
+    .create(<PromoMovie
+      movie={movies[0]}
+      onPlayMovie={jest.fn()}
     />)
     .toJSON();
 

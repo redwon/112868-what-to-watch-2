@@ -6,6 +6,8 @@ import movies from '../../mocks/movies';
 import {Main} from './main';
 
 jest.mock(`../header/header`, () => () => `Header`);
+jest.mock(`../promo-movie/promo-movie`, () => () => `PromoMovie`);
+jest.mock(`../genres-list/genres-list`, () => () => `GenresList`);
 
 const createNodeMock = (element) => {
   if (element.type === `video`) {

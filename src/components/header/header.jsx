@@ -1,23 +1,25 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import {UserType} from '../../types';
 
-const Header = (props) => {
-  const {user, isHideUserBlock} = props;
+const BASE_URL = `https://htmlacademy-react-2.appspot.com`;
 
+const Header = (props, {user, isHideUserBlock}) => {
   const getUserBlock = () => {
     if (user) {
       return (
         <div className="user-block__avatar">
-          <img
-            src={user.avatarUrl}
-            alt="User avatar"
-            width="63"
-            height="63"
-          />
+          <Link to="/my-list">
+            <img
+              src={`${BASE_URL}${user.avatarUrl}`}
+              alt="User avatar"
+              width="63"
+              height="63"
+            />
+          </Link>
         </div>
       );
     }

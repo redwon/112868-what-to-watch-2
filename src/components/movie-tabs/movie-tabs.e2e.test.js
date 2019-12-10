@@ -3,6 +3,7 @@ import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import movies from '../../mocks/movies';
+import reviews from '../../mocks/reviews';
 
 import MovieTabs from './movie-tabs';
 
@@ -12,6 +13,7 @@ it(`MovieTabs is correctly handled click on title`, () => {
   const clickHandler = jest.fn();
   const wrapper = shallow(<MovieTabs
     movie={movies[0]}
+    reviews={reviews}
     activeIndex={0}
     onChangeActiveIndex={clickHandler}
   />);

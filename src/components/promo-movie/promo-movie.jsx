@@ -1,11 +1,17 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import {MovieType} from '../../types';
+import {ActionCreator} from '../../reducer/promo-movie/promo-movie';
+
+import withApi from '../../hocs/with-api/with-api';
 
 import AddMyList from '../add-my-list/add-my-list';
 
-const PromoMovie = ({movie, onPlayMovie}) => {
+const AddMyListWrapped = withApi(AddMyList);
+
+const PromoMovie = ({movie, onPlayMovie, onLoadPromoMovie}) => {
   if (!movie) {
     return null;
   }
@@ -45,7 +51,10 @@ const PromoMovie = ({movie, onPlayMovie}) => {
                 <span>Play</span>
               </button>
 
-              <AddMyList movie={movie} type="promo" />
+              <AddMyListWrapped
+                movie={movie}
+                onClick={onLoadPromoMovie}
+              />
             </div>
           </div>
         </div>
@@ -57,6 +66,15 @@ const PromoMovie = ({movie, onPlayMovie}) => {
 PromoMovie.propTypes = {
   movie: MovieType,
   onPlayMovie: PropTypes.func.isRequired,
+  onLoadPromoMovie: PropTypes.func,
 };
 
-export default PromoMovie;
+const mapDispatchToProps = (dispatch) => ({
+  onLoadPromoMovie: (data) => {
+    dispatch(ActionCreator.loadPromoMovie(data));
+  }
+});
+
+export {PromoMovie};
+
+export default connect(null, mapDispatchToProps)(PromoMovie);

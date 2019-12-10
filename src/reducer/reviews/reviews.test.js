@@ -19,13 +19,6 @@ describe(`Action creators work correctly`, () => {
       payload: [{review: `name`}],
     });
   });
-
-  it(`Action creator for add review returns correct action`, () => {
-    expect(ActionCreator.addReview({review: `name`})).toEqual({
-      type: ActionType.ADD_REVIEW,
-      payload: {review: `name`},
-    });
-  });
 });
 
 describe(`Reducer works correctly`, () => {
@@ -52,24 +45,6 @@ describe(`Operations works correctly`, () => {
       .reply(200, [{fake: true}]);
 
     return loadReviews(dispatch, {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_REVIEWS,
-          payload: [{fake: true}]
-        });
-      });
-  });
-
-  it(`add review should make a correct api call to /comments/:movieId`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const addReview = Operations.addReview(1, `comment`, 1);
-
-    apiMock
-      .onPost(`/comments/1`)
-      .reply(200, [{fake: true}]);
-
-    return addReview(dispatch, {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_REVIEWS,

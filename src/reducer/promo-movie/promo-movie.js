@@ -1,5 +1,3 @@
-import {convertObjectKeys} from '../../utils';
-
 export const initialState = null;
 
 export const ActionType = {
@@ -17,8 +15,7 @@ export const Operations = {
   loadPromoMovie: () => (dispatch, _, api) => {
     return api.get(`/films/promo`)
       .then((response) => {
-        const movie = convertObjectKeys(response.data);
-        dispatch(ActionCreator.loadPromoMovie(movie));
+        dispatch(ActionCreator.loadPromoMovie(response.data));
       });
   }
 };

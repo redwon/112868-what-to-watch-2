@@ -19,22 +19,6 @@ const withVideo = (Component) => {
       this._onFullScreenHandler = this._onFullScreenHandler.bind(this);
     }
 
-    render() {
-      const {isPlaying, progress, endTime} = this.state;
-
-      return (
-        <Component
-          {...this.props}
-          isPlaying={isPlaying}
-          progress={progress}
-          endTime={endTime}
-          renderVideo={this._renderVideo}
-          onPlayButtonClick={this._onPlayButtonClick}
-          onEnableFullScreen={this._onFullScreenHandler}
-        />
-      );
-    }
-
     componentDidMount() {
       const {src} = this.props;
       const video = this._videoRef.current;
@@ -44,7 +28,7 @@ const withVideo = (Component) => {
 
       video.ontimeupdate = () => {
         this.setState({
-          endTime: this._convertTime(video.duration - video.currentTime),
+          endTime: WithVideo.convertTime(video.duration - video.currentTime),
           progress: video.currentTime / video.duration * 100
         });
       };
@@ -83,7 +67,23 @@ const withVideo = (Component) => {
       />;
     }
 
-    _convertTime(timeInSeconds) {
+    render() {
+      const {isPlaying, progress, endTime} = this.state;
+
+      return (
+        <Component
+          {...this.props}
+          isPlaying={isPlaying}
+          progress={progress}
+          endTime={endTime}
+          renderVideo={this._renderVideo}
+          onPlayButtonClick={this._onPlayButtonClick}
+          onEnableFullScreen={this._onFullScreenHandler}
+        />
+      );
+    }
+
+    static convertTime(timeInSeconds) {
       const pad = (num, size) => (`00` + num).slice(size * -1);
       const time = parseFloat(timeInSeconds).toFixed(2);
       const hours = Math.floor(time / 60 / 60);

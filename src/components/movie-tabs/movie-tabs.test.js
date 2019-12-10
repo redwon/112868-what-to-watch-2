@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import movies from '../../mocks/movies';
+import reviews from '../../mocks/reviews';
 
 import MovieTabs from './movie-tabs';
 
@@ -10,6 +11,7 @@ describe(`renders correctly`, () => {
     const tree = renderer
       .create(<MovieTabs
         movie={movies[0]}
+        reviews={reviews}
         activeIndex={0}
         onChangeActiveIndex={jest.fn()}
       />)
@@ -22,6 +24,7 @@ describe(`renders correctly`, () => {
     const tree = renderer
       .create(<MovieTabs
         movie={movies[0]}
+        reviews={reviews}
         activeIndex={1}
         onChangeActiveIndex={jest.fn()}
       />)
@@ -34,6 +37,7 @@ describe(`renders correctly`, () => {
     const tree = renderer
       .create(<MovieTabs
         movie={movies[0]}
+        reviews={reviews}
         activeIndex={2}
         onChangeActiveIndex={jest.fn()}
       />)

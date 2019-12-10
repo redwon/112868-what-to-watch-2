@@ -57,7 +57,7 @@ Array [
       <span
         className="movie-rating__level"
       >
-        Very good
+        Very Good
       </span>
       <span
         className="movie-rating__count"
@@ -278,7 +278,7 @@ Array [
         <p
           className="review__text"
         >
-          Revies text
+          comment 1
         </p>
         <footer
           className="review__details"
@@ -286,13 +286,46 @@ Array [
           <cite
             className="review__author"
           >
-            Kate Muir
+            name
           </cite>
           <time
             className="review__date"
-            dateTime="2016-12-24"
+            dateTime="2019-11-29T14:11:47.482Z"
           >
-            December 24, 2016
+            November 29, 2019
+          </time>
+        </footer>
+      </blockquote>
+      <div
+        className="review__rating"
+      >
+        8,9
+      </div>
+    </div>
+    <div
+      className="review"
+    >
+      <blockquote
+        className="review__quote"
+      >
+        <p
+          className="review__text"
+        >
+          comment 2
+        </p>
+        <footer
+          className="review__details"
+        >
+          <cite
+            className="review__author"
+          >
+            name
+          </cite>
+          <time
+            className="review__date"
+            dateTime="2019-11-23T14:11:47.482Z"
+          >
+            November 23, 2019
           </time>
         </footer>
       </blockquote>

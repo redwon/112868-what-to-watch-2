@@ -3,9 +3,9 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {MovieType} from '../../types';
+import {MovieType, ReviewType} from '../../types';
 import {getRelatedMovies, getMovieById} from '../../selectors';
-import {ActionCreator} from '../../reducer/genre/genre';
+import {Operations} from '../../reducer/movies/movies';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -16,7 +16,9 @@ import AddMyList from '../add-my-list/add-my-list';
 
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import withVideo from '../../hocs/with-video/with-video';
+import withApi from '../../hocs/with-api/with-api';
 
+const AddMyListWrapped = withApi(AddMyList);
 const MoviePlayerWrapped = withVideo(MoviePlayer);
 const MovieTabsWrapped = withActiveItem(MovieTabs);
 
@@ -28,14 +30,15 @@ const Movie = (props) => {
   const {
     movie,
     relatedMovies,
+    reviews,
+    onLoadMovies,
     isPlayerPlaying,
     onPlayerChangeState,
     isAuthorizationRequired,
-    history,
   } = props;
 
-  const onClickTitleHandler = (cardMovie) => {
-    history.replace(`/movie/${cardMovie.id}`);
+  const onAddMyListHandler = () => {
+    onLoadMovies();
   };
 
   const onPlayMovieHandler = () => {
@@ -89,7 +92,10 @@ const Movie = (props) => {
                   <span>Play</span>
                 </button>
 
-                <AddMyList movie={movie} />
+                <AddMyListWrapped
+                  movie={movie}
+                  onClick={onAddMyListHandler}
+                />
 
                 {!isAuthorizationRequired && <Link
                   to={`/movie/${movie.id}/review`}
@@ -114,7 +120,7 @@ const Movie = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <MovieTabsWrapped movie={movie} />
+              <MovieTabsWrapped movie={movie} reviews={reviews} />
             </div>
           </div>
         </div>
@@ -124,7 +130,7 @@ const Movie = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <MoviesList movies={relatedMovies} onClickTitle={onClickTitleHandler} />
+          <MoviesList movies={relatedMovies} />
         </section>
 
         <Footer />
@@ -136,23 +142,25 @@ const Movie = (props) => {
 Movie.propTypes = {
   movie: MovieType,
   relatedMovies: PropTypes.arrayOf(MovieType),
+  reviews: PropTypes.arrayOf(ReviewType),
+  onLoadMovies: PropTypes.func,
   isPlayerPlaying: PropTypes.bool,
   onPlayerChangeState: PropTypes.func,
   isAuthorizationRequired: PropTypes.bool,
   match: PropTypes.object,
-  history: PropTypes.object,
 };
 
 const mapStateToProps = (state, props) => Object.assign({}, props, {
   movie: getMovieById(state, props.match.params.id),
   relatedMovies: getRelatedMovies(state, props.match.params.id),
+  reviews: state.reviews,
   isAuthorizationRequired: state.isAuthorizationRequired
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenreChange: (genre) => {
-    dispatch(ActionCreator.changeGenre(genre));
-  },
+  onLoadMovies: () => {
+    dispatch(Operations.loadMovies());
+  }
 });
 
 export {Movie};

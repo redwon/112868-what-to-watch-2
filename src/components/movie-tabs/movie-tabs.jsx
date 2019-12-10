@@ -1,10 +1,18 @@
-import React, {Fragment} from 'react';
+import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import {MovieType} from '../../types';
 
-const MovieTabs = ({movie, activeIndex, onChangeActiveIndex}) => {
-  const tabs = [`Overview`, `Details`, `Reviews`];
-  const getTabContent = (index) => {
+import {MovieType, ReviewType} from '../../types';
+
+class MovieTabs extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.tabs = [`Overview`, `Details`, `Reviews`];
+  }
+
+  _getTabContent(index) {
+    const {movie, reviews} = this.props;
+
     switch (index) {
       case 0:
         return (
@@ -12,7 +20,7 @@ const MovieTabs = ({movie, activeIndex, onChangeActiveIndex}) => {
             <div className="movie-rating">
               <div className="movie-rating__score">{movie.rating}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">Very good</span>
+                <span className="movie-rating__level">{MovieTabs.getRatingText(movie.rating)}</span>
                 <span className="movie-rating__count">{movie.scoresCount} ratings</span>
               </p>
             </div>
@@ -57,56 +65,88 @@ const MovieTabs = ({movie, activeIndex, onChangeActiveIndex}) => {
       case 2:
         return (
           <div className="movie-card__reviews movie-card__row">
-            <div className="review">
-              <blockquote className="review__quote">
-                <p className="review__text">Revies text</p>
+            {reviews.sort(MovieTabs.sortByDate).map((it, i) => (
+              <div key={i} className="review">
+                <blockquote className="review__quote">
+                  <p className="review__text">{it.comment}</p>
 
-                <footer className="review__details">
-                  <cite className="review__author">Kate Muir</cite>
-                  <time className="review__date" dateTime="2016-12-24">December 24, 2016</time>
-                </footer>
-              </blockquote>
+                  <footer className="review__details">
+                    <cite className="review__author">{it.user.name}</cite>
+                    <time className="review__date" dateTime={it.date}>
+                      {MovieTabs.getFormatDate(it.date)}
+                    </time>
+                  </footer>
+                </blockquote>
 
-              <div className="review__rating">8,9</div>
-            </div>
+                <div className="review__rating">8,9</div>
+              </div>
+            ))}
           </div>
         );
     }
 
     return null;
-  };
+  }
 
-  return (
-    <Fragment>
-      <nav className="movie-nav movie-card__nav">
-        <ul className="movie-nav__list">
-          {tabs.map((it, i) => (
-            <li
-              key={i}
-              className={`movie-nav__item ${(i === activeIndex) ? `movie-nav__item--active` : ``}`}
-            >
-              <a
-                href="#"
-                className="movie-nav__link"
-                onClick={(evt) => {
-                  evt.preventDefault();
-                  onChangeActiveIndex(i);
-                }}
+  render() {
+    const {activeIndex, onChangeActiveIndex} = this.props;
+
+    return (
+      <Fragment>
+        <nav className="movie-nav movie-card__nav">
+          <ul className="movie-nav__list">
+            {this.tabs.map((it, i) => (
+              <li
+                key={i}
+                className={`movie-nav__item ${(i === activeIndex) ? `movie-nav__item--active` : ``}`}
               >
-                {it}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+                <a
+                  href="#"
+                  className="movie-nav__link"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    onChangeActiveIndex(i);
+                  }}
+                >
+                  {it}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      {getTabContent(activeIndex)}
-    </Fragment>
-  );
-};
+        {this._getTabContent(activeIndex)}
+      </Fragment>
+    );
+  }
+
+  static getRatingText(rating) {
+    switch (true) {
+      case (rating === 10):
+        return `Awesome`;
+      case (rating < 10 && rating >= 8):
+        return `Very Good`;
+      case (rating < 8 && rating >= 5):
+        return `Good`;
+      case (rating < 5 && rating >= 3):
+        return `Normal`;
+    }
+
+    return `Bad`;
+  }
+
+  static sortByDate(a, b) {
+    return new Date(b.date) - new Date(a.date);
+  }
+
+  static getFormatDate(date) {
+    return new Date(date).toLocaleDateString(`en-US`, {year: `numeric`, month: `long`, day: `numeric`});
+  }
+}
 
 MovieTabs.propTypes = {
   movie: MovieType,
+  reviews: PropTypes.arrayOf(ReviewType),
   activeIndex: PropTypes.number,
   onChangeActiveIndex: PropTypes.func,
 };

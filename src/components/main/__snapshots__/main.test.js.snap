@@ -6,6 +6,7 @@ Array [
     className="movie-card"
   >
     Header
+    PromoMovie
   </section>,
   <div
     className="page-content"
@@ -18,43 +19,7 @@ Array [
       >
         Catalog
       </h2>
-      <ul
-        className="catalog__genres-list"
-      >
-        <li
-          className="catalog__genres-item catalog__genres-item--active"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={[Function]}
-          >
-            All Genres
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={[Function]}
-          >
-            Adventure
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={[Function]}
-          >
-            Action
-          </a>
-        </li>
-      </ul>
+      GenresList
       <div
         className="catalog__movies-list"
       >
