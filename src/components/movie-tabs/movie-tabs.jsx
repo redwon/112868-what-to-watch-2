@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import {MovieType} from '../../types';
+import {MovieType, ReviewType} from '../../types';
 
-const MovieTabs = ({movie, activeIndex, onChangeActiveIndex}) => {
+const MovieTabs = ({movie, reviews, activeIndex, onChangeActiveIndex}) => {
   const tabs = [`Overview`, `Details`, `Reviews`];
   const getRatingText = (rating) => {
     switch (true) {
@@ -17,6 +17,12 @@ const MovieTabs = ({movie, activeIndex, onChangeActiveIndex}) => {
     }
 
     return `Bad`;
+  };
+  const sortByDate = (a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  };
+  const getFormatDate = (date) => {
+    return new Date(date).toLocaleDateString(`en-US`, {year: `numeric`, month: `long`, day: `numeric`});
   };
   const getTabContent = (index) => {
     switch (index) {
@@ -71,18 +77,22 @@ const MovieTabs = ({movie, activeIndex, onChangeActiveIndex}) => {
       case 2:
         return (
           <div className="movie-card__reviews movie-card__row">
-            <div className="review">
-              <blockquote className="review__quote">
-                <p className="review__text">Revies text</p>
+            {reviews.sort(sortByDate).map((it, i) => (
+              <div key={i} className="review">
+                <blockquote className="review__quote">
+                  <p className="review__text">{it.comment}</p>
 
-                <footer className="review__details">
-                  <cite className="review__author">Kate Muir</cite>
-                  <time className="review__date" dateTime="2016-12-24">December 24, 2016</time>
-                </footer>
-              </blockquote>
+                  <footer className="review__details">
+                    <cite className="review__author">{it.user.name}</cite>
+                    <time className="review__date" dateTime={it.date}>
+                      {getFormatDate(it.date)}
+                    </time>
+                  </footer>
+                </blockquote>
 
-              <div className="review__rating">8,9</div>
-            </div>
+                <div className="review__rating">8,9</div>
+              </div>
+            ))}
           </div>
         );
     }
@@ -121,6 +131,7 @@ const MovieTabs = ({movie, activeIndex, onChangeActiveIndex}) => {
 
 MovieTabs.propTypes = {
   movie: MovieType,
+  reviews: PropTypes.arrayOf(ReviewType),
   activeIndex: PropTypes.number,
   onChangeActiveIndex: PropTypes.func,
 };

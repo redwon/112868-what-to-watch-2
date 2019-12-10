@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import {BrowserRouter} from 'react-router-dom';
 
 import movies from '../../mocks/movies';
+import reviews from '../../mocks/reviews';
 
 import {Movie} from './movie';
 
@@ -14,6 +15,7 @@ it(`renders correctly`, () => {
     .create(<BrowserRouter>
       <Movie
         movie={movies[0]}
+        reviews={reviews}
         relatedMovies={movies.slice(0, 4)}
         onGenreChange={jest.fn()}
       />

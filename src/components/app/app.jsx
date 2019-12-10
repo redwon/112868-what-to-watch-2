@@ -6,6 +6,7 @@ import {Switch, Route} from 'react-router-dom';
 import {Operations as MoviesOperations} from '../../reducer/movies/movies';
 import {Operations as PromoMovieOperations} from '../../reducer/promo-movie/promo-movie';
 import {Operations as FavoritesOperations} from '../../reducer/favorites/favorites';
+import {Operations as ReviewsOperations} from '../../reducer/reviews/reviews';
 
 import Main from '../main/main';
 import Movie from '../movie/movie';
@@ -24,7 +25,7 @@ const MovieWrapped = withPlayerState(Movie);
 const AddReviewWrapped = withAuth(withFormReview(AddReview));
 const MyListWrapped = withAuth(MyList);
 
-const App = ({onLoadMovies, onLoadPromoMovie, onLoadFavorites}) => {
+const App = ({onLoadMovies, onLoadPromoMovie, onLoadFavorites, onLoadReviews}) => {
   return (
     <Switch>
       <Route
@@ -46,9 +47,11 @@ const App = ({onLoadMovies, onLoadPromoMovie, onLoadFavorites}) => {
       <Route
         path="/movie/:id"
         exact
-        render={(props) => {
+        render={(routeProps) => {
+          const movieId = routeProps.match.params.id;
           onLoadMovies();
-          return <MovieWrapped {...props} />;
+          onLoadReviews(movieId);
+          return <MovieWrapped {...routeProps} />;
         }}
       />
       <Route
@@ -74,6 +77,7 @@ App.propTypes = {
   onLoadMovies: PropTypes.func,
   onLoadPromoMovie: PropTypes.func,
   onLoadFavorites: PropTypes.func,
+  onLoadReviews: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -85,6 +89,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onLoadFavorites: () => {
     dispatch(FavoritesOperations.loadFavorites());
+  },
+  onLoadReviews: (movieId) => {
+    dispatch(ReviewsOperations.loadReviews(movieId));
   }
 });
 

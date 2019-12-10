@@ -30,3 +30,14 @@ export const UserType = shape({
   name: string,
   avatarUrl: string,
 });
+
+export const ReviewType = shape({
+  id: number,
+  user: shape({
+    id: number,
+    name: string
+  }),
+  rating: number,
+  comment: string,
+  date: string
+});

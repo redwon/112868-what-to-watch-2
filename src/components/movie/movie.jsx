@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import {MovieType} from '../../types';
+import {MovieType, ReviewType} from '../../types';
 import {getRelatedMovies, getMovieById} from '../../selectors';
 import {Operations} from '../../reducer/movies/movies';
 
@@ -30,6 +30,7 @@ const Movie = (props) => {
   const {
     movie,
     relatedMovies,
+    reviews,
     onLoadMovies,
     isPlayerPlaying,
     onPlayerChangeState,
@@ -119,7 +120,7 @@ const Movie = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <MovieTabsWrapped movie={movie} />
+              <MovieTabsWrapped movie={movie} reviews={reviews} />
             </div>
           </div>
         </div>
@@ -141,6 +142,7 @@ const Movie = (props) => {
 Movie.propTypes = {
   movie: MovieType,
   relatedMovies: PropTypes.arrayOf(MovieType),
+  reviews: PropTypes.arrayOf(ReviewType),
   onLoadMovies: PropTypes.func,
   isPlayerPlaying: PropTypes.bool,
   onPlayerChangeState: PropTypes.func,
@@ -151,6 +153,7 @@ Movie.propTypes = {
 const mapStateToProps = (state, props) => Object.assign({}, props, {
   movie: getMovieById(state, props.match.params.id),
   relatedMovies: getRelatedMovies(state, props.match.params.id),
+  reviews: state.reviews,
   isAuthorizationRequired: state.isAuthorizationRequired
 });
 
