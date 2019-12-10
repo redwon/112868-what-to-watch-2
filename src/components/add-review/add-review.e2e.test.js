@@ -11,7 +11,7 @@ Enzyme.configure({adapter: new Adapter()});
 it(`AddReview is correctly handled submit form`, () => {
   const showErrorHandler = jest.fn();
   const userInputHandler = jest.fn();
-  const addReviewHandler = jest.fn();
+  const onPostHandler = jest.fn();
 
   const wrapper = shallow(<AddReview
     movie={movies[0]}
@@ -23,14 +23,14 @@ it(`AddReview is correctly handled submit form`, () => {
     isShowError={true}
     onShowError={showErrorHandler}
     onUserInput={userInputHandler}
-    onPost={addReviewHandler}
+    onPost={onPostHandler}
     isLoading={false}
   />);
 
   const form = wrapper.find(`.add-review__form`);
   form.simulate(`submit`, {preventDefault: jest.fn()});
   expect(showErrorHandler).toHaveBeenCalledWith(true);
-  expect(addReviewHandler).toHaveBeenCalledWith(
+  expect(onPostHandler).toHaveBeenCalledWith(
       `/comments/${movies[0].id}`,
       {comment: `comment`, rating: 1},
       expect.anything()

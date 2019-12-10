@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {ActionCreator} from '../../reducer/user/user';
+import {ActionCreator as AuthActionCreator} from '../../reducer/authorization/authorization';
 import history from '../../history';
 
 import Header from '../header/header';
@@ -124,6 +125,7 @@ SignIn.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   onLogin: (user) => {
     dispatch(ActionCreator.login(user));
+    dispatch(AuthActionCreator.requireAuthorization(false));
   }
 });
 

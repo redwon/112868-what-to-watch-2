@@ -6,6 +6,7 @@ Array [
     className="movie-card"
   >
     Header
+    PromoMovie
   </section>,
   <div
     className="page-content"

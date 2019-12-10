@@ -19,13 +19,6 @@ describe(`Action creators work correctly`, () => {
       payload: [{favorite: `name`}],
     });
   });
-
-  it(`Action creator for toggle favorite returns correct action`, () => {
-    expect(ActionCreator.toggleFavorite({favorite: `name`})).toEqual({
-      type: ActionType.TOGGLE_FAVORITE,
-      payload: {favorite: `name`},
-    });
-  });
 });
 
 describe(`Reducer works correctly`, () => {
@@ -56,24 +49,6 @@ describe(`Operations works correctly`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_FAVORITES,
           payload: [{fake: true}]
-        });
-      });
-  });
-
-  it(`toggle review should make a correct api call to /favorite/:movieId/:state`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const toggleFavorite = Operations.toggleFavorite({id: 1, isFavorite: false}, `promo`);
-
-    apiMock
-      .onPost(`/favorite/1/1`)
-      .reply(200, {id: 1, isFavorite: true});
-
-    return toggleFavorite(dispatch, {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: `LOAD_PROMO_MOVIE`,
-          payload: {id: 1, isFavorite: true}
         });
       });
   });

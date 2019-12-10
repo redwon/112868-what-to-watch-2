@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {MovieType} from '../../types';
 import {getRelatedMovies, getMovieById} from '../../selectors';
 import {ActionCreator} from '../../reducer/genre/genre';
+import {Operations} from '../../reducer/movies/movies';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -16,7 +17,9 @@ import AddMyList from '../add-my-list/add-my-list';
 
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import withVideo from '../../hocs/with-video/with-video';
+import withApi from '../../hocs/with-api/with-api';
 
+const AddMyListWrapped = withApi(AddMyList);
 const MoviePlayerWrapped = withVideo(MoviePlayer);
 const MovieTabsWrapped = withActiveItem(MovieTabs);
 
@@ -28,10 +31,15 @@ const Movie = (props) => {
   const {
     movie,
     relatedMovies,
+    onLoadMovies,
     isPlayerPlaying,
     onPlayerChangeState,
     isAuthorizationRequired,
   } = props;
+
+  const onAddMyListHandler = () => {
+    onLoadMovies();
+  };
 
   const onPlayMovieHandler = () => {
     onPlayerChangeState(true);
@@ -84,7 +92,10 @@ const Movie = (props) => {
                   <span>Play</span>
                 </button>
 
-                <AddMyList movie={movie} />
+                <AddMyListWrapped
+                  movie={movie}
+                  onClick={onAddMyListHandler}
+                />
 
                 {!isAuthorizationRequired && <Link
                   to={`/movie/${movie.id}/review`}
@@ -131,6 +142,7 @@ const Movie = (props) => {
 Movie.propTypes = {
   movie: MovieType,
   relatedMovies: PropTypes.arrayOf(MovieType),
+  onLoadMovies: PropTypes.func,
   isPlayerPlaying: PropTypes.bool,
   onPlayerChangeState: PropTypes.func,
   isAuthorizationRequired: PropTypes.bool,
@@ -147,6 +159,9 @@ const mapDispatchToProps = (dispatch) => ({
   onGenreChange: (genre) => {
     dispatch(ActionCreator.changeGenre(genre));
   },
+  onLoadMovies: () => {
+    dispatch(Operations.loadMovies());
+  }
 });
 
 export {Movie};
