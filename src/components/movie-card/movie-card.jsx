@@ -19,6 +19,10 @@ class MovieCard extends PureComponent {
     this._mouseLeaveHandler = this._mouseLeaveHandler.bind(this);
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
   _clickHandler(evt) {
     evt.preventDefault();
     history.push(`/movie/${this.props.movie.id}`);
