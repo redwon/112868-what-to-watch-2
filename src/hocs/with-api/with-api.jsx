@@ -23,11 +23,11 @@ const withApi = (Component) => {
 
       api.post(url, params)
         .then((response) => {
+          this.setState({isLoading: false});
+
           if (typeof onResponse === `function`) {
             onResponse(response.data);
           }
-
-          this.setState({isLoading: false});
         })
         .catch((error) => this.setState({
           error,
