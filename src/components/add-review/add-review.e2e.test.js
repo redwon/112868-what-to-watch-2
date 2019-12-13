@@ -9,9 +9,9 @@ import {AddReview} from './add-review';
 Enzyme.configure({adapter: new Adapter()});
 
 it(`AddReview is correctly handled submit form`, () => {
-  const showErrorHandler = jest.fn();
-  const userInputHandler = jest.fn();
-  const onPostHandler = jest.fn();
+  const handleErrorShow = jest.fn();
+  const handleUserInput = jest.fn();
+  const handlePostRequest = jest.fn();
 
   const wrapper = shallow(<AddReview
     movie={movies[0]}
@@ -21,16 +21,16 @@ it(`AddReview is correctly handled submit form`, () => {
     isRatingValid={true}
     isFormValid={true}
     isShowError={true}
-    onShowError={showErrorHandler}
-    onUserInput={userInputHandler}
-    onPost={onPostHandler}
+    onShowError={handleErrorShow}
+    onUserInput={handleUserInput}
+    onPost={handlePostRequest}
     isLoading={false}
   />);
 
   const form = wrapper.find(`.add-review__form`);
   form.simulate(`submit`, {preventDefault: jest.fn()});
-  expect(showErrorHandler).toHaveBeenCalledWith(true);
-  expect(onPostHandler).toHaveBeenCalledWith(
+  expect(handleErrorShow).toHaveBeenCalledWith(true);
+  expect(handlePostRequest).toHaveBeenCalledWith(
       `/comments/${movies[0].id}`,
       {comment: `comment`, rating: 1},
       expect.anything()
@@ -38,5 +38,5 @@ it(`AddReview is correctly handled submit form`, () => {
 
   const ratingInputs = wrapper.find(`.rating__input`);
   ratingInputs.at(2).simulate(`change`);
-  expect(userInputHandler).toHaveBeenCalledTimes(1);
+  expect(handleUserInput).toHaveBeenCalledTimes(1);
 });

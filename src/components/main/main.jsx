@@ -31,11 +31,11 @@ const Main = (props) => {
     onPlayerChangeState,
   } = props;
 
-  const onPlayMovieHandler = () => {
+  const handleMoviePlay = () => {
     onPlayerChangeState(true);
   };
 
-  const onExitPlayerHandler = () => {
+  const handlePlayerExit = () => {
     onPlayerChangeState(false);
   };
 
@@ -44,7 +44,7 @@ const Main = (props) => {
       <MoviePlayerWrapped
         src={promoMovie.videoLink}
         movie={promoMovie}
-        onExit={onExitPlayerHandler}
+        onExit={handlePlayerExit}
       />
     );
   }
@@ -53,7 +53,7 @@ const Main = (props) => {
     <Fragment>
       <section className="movie-card">
         <Header className="movie-card__head" />
-        <PromoMovie movie={promoMovie} onPlayMovie={onPlayMovieHandler} />
+        <PromoMovie movie={promoMovie} onPlayMovie={handleMoviePlay} />
       </section>
 
       <div className="page-content">

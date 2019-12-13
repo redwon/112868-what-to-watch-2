@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ITEMS_PER_PAGE = 20;
 
 const ShowMore = ({itemsToShow, onClick}) => {
-  const onClickHandler = () => {
+  const handleButtonClick = () => {
     onClick(itemsToShow + ITEMS_PER_PAGE);
   };
 
@@ -13,7 +13,7 @@ const ShowMore = ({itemsToShow, onClick}) => {
       <button
         className="catalog__button"
         type="button"
-        onClick={onClickHandler}
+        onClick={handleButtonClick}
       >
         Show more
       </button>

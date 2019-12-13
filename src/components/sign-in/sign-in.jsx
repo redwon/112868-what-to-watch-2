@@ -27,7 +27,7 @@ const SignIn = (props) => {
     onUserInput,
   } = props;
 
-  const submitHandler = (evt) => {
+  const handleFormSubmit = (evt) => {
     evt.preventDefault();
     onShowError(true);
 
@@ -46,7 +46,7 @@ const SignIn = (props) => {
         <h1 className="page-title user-page__title">Sign in</h1>
       </Header>
       <div className="sign-in user-page__content">
-        <form className="sign-in__form" onSubmit={submitHandler}>
+        <form className="sign-in__form" onSubmit={handleFormSubmit}>
           {isShowError && (
             <div className="sign-in__message">
               {!isEmailValid && (

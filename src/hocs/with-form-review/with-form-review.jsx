@@ -25,11 +25,11 @@ const withFormReview = (Component) => {
         isShowError: false,
       };
 
-      this._userInputHandler = this._userInputHandler.bind(this);
-      this._showErrorHandler = this._showErrorHandler.bind(this);
+      this._handleUserInput = this._handleUserInput.bind(this);
+      this._handleErrorShow = this._handleErrorShow.bind(this);
     }
 
-    _userInputHandler(evt) {
+    _handleUserInput(evt) {
       const name = evt.target.name;
       const value = evt.target.value;
       this.setState({[name]: value}, () => this._validateFields(name, value));
@@ -55,7 +55,7 @@ const withFormReview = (Component) => {
       });
     }
 
-    _showErrorHandler(state) {
+    _handleErrorShow(state) {
       this.setState({isShowError: state});
     }
 
@@ -70,8 +70,8 @@ const withFormReview = (Component) => {
         ratingErrorMessage={ratingErrorMessage}
         isFormValid={this.state.isFormValid}
         isShowError={this.state.isShowError}
-        onShowError={this._showErrorHandler}
-        onUserInput={this._userInputHandler}
+        onShowError={this._handleErrorShow}
+        onUserInput={this._handleUserInput}
       />;
     }
   }

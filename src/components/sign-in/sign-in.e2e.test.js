@@ -7,8 +7,8 @@ import {SignIn} from './sign-in';
 Enzyme.configure({adapter: new Adapter()});
 
 it(`SignIn is correctly handled submit form`, () => {
-  const showErrorHandler = jest.fn();
-  const onPostHandler = jest.fn();
+  const handleErrorShow = jest.fn();
+  const handlePostRequest = jest.fn();
 
   const wrapper = shallow(<SignIn
     email={`email@test.com`}
@@ -17,16 +17,16 @@ it(`SignIn is correctly handled submit form`, () => {
     isPasswordValid={true}
     isFormValid={true}
     isShowError={true}
-    onShowError={showErrorHandler}
+    onShowError={handleErrorShow}
     onUserInput={jest.fn()}
-    onPost={onPostHandler}
+    onPost={handlePostRequest}
     isLoading={false}
   />);
 
   const form = wrapper.find(`.sign-in__form`);
   form.simulate(`submit`, {preventDefault: jest.fn()});
-  expect(showErrorHandler).toHaveBeenCalledWith(true);
-  expect(onPostHandler).toHaveBeenCalledWith(
+  expect(handleErrorShow).toHaveBeenCalledWith(true);
+  expect(handlePostRequest).toHaveBeenCalledWith(
       `/login`,
       {email: `email@test.com`, password: `test`},
       expect.anything()

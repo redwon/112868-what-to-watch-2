@@ -9,10 +9,10 @@ const withPlayerState = (Component) => {
         isPlayerPlaying: false,
       };
 
-      this._playerChangeStateHandler = this._playerChangeStateHandler.bind(this);
+      this._handlePlayerStateChange = this._handlePlayerStateChange.bind(this);
     }
 
-    _playerChangeStateHandler(status) {
+    _handlePlayerStateChange(status) {
       this.setState({isPlayerPlaying: status});
     }
 
@@ -20,7 +20,7 @@ const withPlayerState = (Component) => {
       return <Component
         {...this.props}
         isPlayerPlaying={this.state.isPlayerPlaying}
-        onPlayerChangeState={this._playerChangeStateHandler}
+        onPlayerChangeState={this._handlePlayerStateChange}
       />;
     }
   }

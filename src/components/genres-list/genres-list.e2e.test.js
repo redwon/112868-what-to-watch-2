@@ -9,16 +9,16 @@ import {GenresList} from './genres-list';
 Enzyme.configure({adapter: new Adapter()});
 
 it(`GenresList is correctly handled click on item`, () => {
-  const clickHandler = jest.fn();
+  const handleGenreClick = jest.fn();
   const wrapper = shallow(<GenresList
     movies={movies}
     genre="All Genres"
-    onGenreChange={clickHandler}
+    onGenreChange={handleGenreClick}
   />);
 
   const genres = wrapper.find(`.catalog__genres-link`);
 
   genres.at(1).simulate(`click`, {preventDefault: () => {}});
 
-  expect(clickHandler).toHaveBeenCalledWith(movies[0].genre);
+  expect(handleGenreClick).toHaveBeenCalledWith(movies[0].genre);
 });

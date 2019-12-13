@@ -9,10 +9,10 @@ const withActiveItem = (Component) => {
         activeIndex: 0,
       };
 
-      this._changeIndexHandler = this._changeIndexHandler.bind(this);
+      this._handleIndexChange = this._handleIndexChange.bind(this);
     }
 
-    _changeIndexHandler(index) {
+    _handleIndexChange(index) {
       this.setState({activeIndex: index});
     }
 
@@ -20,7 +20,7 @@ const withActiveItem = (Component) => {
       return <Component
         {...this.props}
         activeIndex={this.state.activeIndex}
-        onChangeActiveIndex={this._changeIndexHandler}
+        onChangeActiveIndex={this._handleIndexChange}
       />;
     }
   }

@@ -33,7 +33,7 @@ const AddReview = (props) => {
 
   const ratings = [1, 2, 3, 4, 5];
 
-  const onSubmitHandler = (evt) => {
+  const handleFormSubmit = (evt) => {
     evt.preventDefault();
     onShowError(true);
 
@@ -71,7 +71,7 @@ const AddReview = (props) => {
       </div>
 
       <div className="add-review">
-        <form className="add-review__form" onSubmit={onSubmitHandler}>
+        <form className="add-review__form" onSubmit={handleFormSubmit}>
           <div className="rating">
             <div className="rating__stars">
               {ratings.map((it, i) => (

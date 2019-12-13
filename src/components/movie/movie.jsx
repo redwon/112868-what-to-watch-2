@@ -37,15 +37,15 @@ const Movie = (props) => {
     isAuthorizationRequired,
   } = props;
 
-  const onAddMyListHandler = () => {
+  const handleMyListClick = () => {
     onLoadMovies();
   };
 
-  const onPlayMovieHandler = () => {
+  const handleMoviePlay = () => {
     onPlayerChangeState(true);
   };
 
-  const onExitPlayerHandler = () => {
+  const handlePlayerExit = () => {
     onPlayerChangeState(false);
   };
 
@@ -54,7 +54,7 @@ const Movie = (props) => {
       <MoviePlayerWrapped
         src={movie.videoLink}
         movie={movie}
-        onExit={onExitPlayerHandler}
+        onExit={handlePlayerExit}
       />
     );
   }
@@ -84,7 +84,7 @@ const Movie = (props) => {
                 <button
                   className="btn btn--play movie-card__button"
                   type="button"
-                  onClick={onPlayMovieHandler}
+                  onClick={handleMoviePlay}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -94,7 +94,7 @@ const Movie = (props) => {
 
                 <AddMyListWrapped
                   movie={movie}
-                  onClick={onAddMyListHandler}
+                  onClick={handleMyListClick}
                 />
 
                 {!isAuthorizationRequired && <Link

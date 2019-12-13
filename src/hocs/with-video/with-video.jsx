@@ -16,7 +16,7 @@ const withVideo = (Component) => {
 
       this._onPlayButtonClick = this._onPlayButtonClick.bind(this);
       this._renderVideo = this._renderVideo.bind(this);
-      this._onFullScreenHandler = this._onFullScreenHandler.bind(this);
+      this._handlePlayerFullScreen = this._handlePlayerFullScreen.bind(this);
     }
 
     componentDidMount() {
@@ -55,7 +55,7 @@ const withVideo = (Component) => {
       this.setState({isPlaying: !this.state.isPlaying});
     }
 
-    _onFullScreenHandler() {
+    _handlePlayerFullScreen() {
       const video = this._videoRef.current;
       video.requestFullscreen();
     }
@@ -78,7 +78,7 @@ const withVideo = (Component) => {
           endTime={endTime}
           renderVideo={this._renderVideo}
           onPlayButtonClick={this._onPlayButtonClick}
-          onEnableFullScreen={this._onFullScreenHandler}
+          onEnableFullScreen={this._handlePlayerFullScreen}
         />
       );
     }

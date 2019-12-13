@@ -10,15 +10,15 @@ const initialCount = 8;
 const itemsPerPage = 20;
 
 it(`ShowMore is correctly handled click on button`, () => {
-  const clickHandler = jest.fn();
+  const handleButtonClick = jest.fn();
   const wrapper = shallow(<ShowMore
     itemsToShow={8}
-    onClick={clickHandler}
+    onClick={handleButtonClick}
   />);
 
   const btn = wrapper.find(`.catalog__button`);
 
   btn.simulate(`click`);
 
-  expect(clickHandler).toHaveBeenCalledWith(initialCount + itemsPerPage);
+  expect(handleButtonClick).toHaveBeenCalledWith(initialCount + itemsPerPage);
 });

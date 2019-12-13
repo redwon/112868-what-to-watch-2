@@ -15,10 +15,10 @@ const withApi = (Component) => {
         error: null,
       };
 
-      this._onPostHandler = this._onPostHandler.bind(this);
+      this._handlePostRequest = this._handlePostRequest.bind(this);
     }
 
-    _onPostHandler(url, params, onResponse) {
+    _handlePostRequest(url, params, onResponse) {
       this.setState({isLoading: true});
 
       api.post(url, params)
@@ -40,7 +40,7 @@ const withApi = (Component) => {
         {...this.props}
         isLoading={this.state.data}
         error={this.state.error}
-        onPost={this._onPostHandler}
+        onPost={this._handlePostRequest}
       />;
     }
   }

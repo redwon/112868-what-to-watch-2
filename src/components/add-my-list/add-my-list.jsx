@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {MovieType} from '../../types';
 
 const AddMyList = ({movie, onClick, isLoading, onPost}) => {
-  const onClickHandler = () => {
+  const handleButtonClick = () => {
     if (!isLoading) {
       const state = movie.isFavorite ? 0 : 1;
 
@@ -20,7 +20,7 @@ const AddMyList = ({movie, onClick, isLoading, onPost}) => {
     <button
       className="btn btn--list movie-card__button"
       type="button"
-      onClick={onClickHandler}
+      onClick={handleButtonClick}
     >
       {!movie.isFavorite && <svg viewBox="0 0 19 20" width="19" height="20">
         <use xlinkHref="#add"></use>

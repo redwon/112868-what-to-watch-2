@@ -9,18 +9,18 @@ import MoviePlayer from './movie-player';
 Enzyme.configure({adapter: new Adapter()});
 
 it(`MoviePlayer is correctly handled click on button`, () => {
-  const onPlayHandler = jest.fn();
-  const onFullScreenHandler = jest.fn();
-  const onExitHandler = jest.fn();
+  const handlePlayButtonClick = jest.fn();
+  const handlePlayerFullScreen = jest.fn();
+  const handlePlayerExit = jest.fn();
   const wrapper = shallow(<MoviePlayer
     movie={movies[0]}
     isPlaying={true}
     progress={0}
     endTime={`0:00:00`}
-    onPlayButtonClick={onPlayHandler}
-    onEnableFullScreen={onFullScreenHandler}
+    onPlayButtonClick={handlePlayButtonClick}
+    onEnableFullScreen={handlePlayerFullScreen}
     renderVideo={jest.fn()}
-    onExit={onExitHandler}
+    onExit={handlePlayerExit}
   />);
 
   const playBtn = wrapper.find(`.player__play`);
@@ -28,11 +28,11 @@ it(`MoviePlayer is correctly handled click on button`, () => {
   const onExitBtn = wrapper.find(`.player__exit`);
 
   playBtn.simulate(`click`);
-  expect(onPlayHandler).toHaveBeenCalledTimes(1);
+  expect(handlePlayButtonClick).toHaveBeenCalledTimes(1);
 
   onFullScreeBtn.simulate(`click`);
-  expect(onFullScreenHandler).toHaveBeenCalledTimes(1);
+  expect(handlePlayerFullScreen).toHaveBeenCalledTimes(1);
 
   onExitBtn.simulate(`click`);
-  expect(onExitHandler).toHaveBeenCalledTimes(1);
+  expect(handlePlayerExit).toHaveBeenCalledTimes(1);
 });

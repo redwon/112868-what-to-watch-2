@@ -14,27 +14,27 @@ class MovieCard extends PureComponent {
 
     this.timer = null;
 
-    this._clickHandler = this._clickHandler.bind(this);
-    this._mouseEnterHandler = this._mouseEnterHandler.bind(this);
-    this._mouseLeaveHandler = this._mouseLeaveHandler.bind(this);
+    this._handleCardClick = this._handleCardClick.bind(this);
+    this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
+    this._handleCardMouseLeave = this._handleCardMouseLeave.bind(this);
   }
 
   componentWillUnmount() {
     clearTimeout(this.timer);
   }
 
-  _clickHandler(evt) {
+  _handleCardClick(evt) {
     evt.preventDefault();
     history.push(`/movie/${this.props.movie.id}`);
   }
 
-  _mouseEnterHandler() {
+  _handleCardMouseEnter() {
     this.timer = setTimeout(() => {
       this.props.onPlayerChangeState(true);
     }, MOUSE_ENTER_DELAY);
   }
 
-  _mouseLeaveHandler() {
+  _handleCardMouseLeave() {
     clearTimeout(this.timer);
     this.props.onPlayerChangeState(false);
   }
@@ -45,9 +45,9 @@ class MovieCard extends PureComponent {
     return (
       <article
         className="small-movie-card catalog__movies-card"
-        onMouseEnter={this._mouseEnterHandler}
-        onMouseLeave={this._mouseLeaveHandler}
-        onClick={this._clickHandler}
+        onMouseEnter={this._handleCardMouseEnter}
+        onMouseLeave={this._handleCardMouseLeave}
+        onClick={this._handleCardClick}
       >
         <div className="small-movie-card__image">
           <PreviewPlayer
@@ -61,7 +61,7 @@ class MovieCard extends PureComponent {
           <a
             className="small-movie-card__link"
             href="#"
-            onClick={this._clickHandler}
+            onClick={this._handleCardClick}
           >
             {movie.name}
           </a>

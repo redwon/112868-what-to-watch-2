@@ -10,17 +10,17 @@ import MovieTabs from './movie-tabs';
 Enzyme.configure({adapter: new Adapter()});
 
 it(`MovieTabs is correctly handled click on title`, () => {
-  const clickHandler = jest.fn();
+  const handleIndexChange = jest.fn();
   const wrapper = shallow(<MovieTabs
     movie={movies[0]}
     reviews={reviews}
     activeIndex={0}
-    onChangeActiveIndex={clickHandler}
+    onChangeActiveIndex={handleIndexChange}
   />);
 
   const links = wrapper.find(`.movie-nav__link`);
 
   links.at(2).simulate(`click`, {preventDefault: jest.fn()});
 
-  expect(clickHandler).toHaveBeenCalledWith(2);
+  expect(handleIndexChange).toHaveBeenCalledWith(2);
 });
