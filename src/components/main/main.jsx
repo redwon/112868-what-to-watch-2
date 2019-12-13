@@ -61,7 +61,9 @@ const Main = (props) => {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList movies={movies} />
           <MoviesListWrapped movies={filteredMovies} />
-          {(movies.length > itemsToShow) && <ShowMore itemsToShow={itemsToShow} onClick={onChangeItemsToShow} />}
+          {filteredMovies.length >= itemsToShow && (
+            <ShowMore itemsToShow={itemsToShow} onClick={onChangeItemsToShow} />
+          )}
         </section>
 
         <Footer />
@@ -83,6 +85,7 @@ Main.propTypes = {
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   movies: state.movies,
   filteredMovies: getGenreMovies(state),
+  genre: state.genre,
   promoMovie: state.promoMovie,
   itemsToShow: state.itemsToShow,
 });
