@@ -1,5 +1,9 @@
 import {ActionCreator as AuthActionCreator} from '../authorization/authorization';
 
+const HTTP_STATUS = {
+  SUCCESS: 200
+};
+
 export const initialState = null;
 
 export const ActionType = {
@@ -17,7 +21,7 @@ export const Operations = {
   checkLogin: () => (dispatch, _, api) => {
     return api.get(`/login`)
       .then((response) => {
-        if (response.status === 200) {
+        if (response.status === HTTP_STATUS.SUCCESS) {
           dispatch(ActionCreator.login(response.data));
           dispatch(AuthActionCreator.requireAuthorization(false));
         }
